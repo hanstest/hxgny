@@ -1,0 +1,21 @@
+{
+  "name": "hxgny",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-addons-pure-render-mixin": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-komposer": "^1.13.1",
+    "react-router": "^2.8.1",
+    "semantic-ui-css": "^2.2.4",
+    "semantic-ui-react": "^0.56.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.0.4",
+    "babel-plugin-transform-class-properties": "^6.16.0"
+  }
+}
