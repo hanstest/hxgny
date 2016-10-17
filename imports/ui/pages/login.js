@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { Grid, Form, Button, Input, Icon, Label, Menu } from 'semantic-ui-react'
+import { Grid, Form, Button, Input, Header, Divider } from 'semantic-ui-react'
 import handleLogin from '../../modules/login'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   state = { serializedForm: {} }
 
   // componentDidMount() {
@@ -18,14 +18,17 @@ export default class Login extends React.Component {
     handleLogin(serializedForm)
   }
 
-
   render() {
     return (
-      <Grid textAlign='left' columns={3}>
-        <Grid.Row>
-          <Grid.Column>
+      <Grid textAlign='left' columns={4}>
+        <Grid.Row centered>
+          <Grid.Column mobile={16} tablet={8} computer={4}>
+            <Header as='h2' icon='sign in' content='Login to HXGNY' />
           </Grid.Column>
-          <Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered>
+          <Grid.Column mobile={16} tablet={8} computer={4}>
             <Form onSubmit={this.handleSubmit}>
               <Form.Field>
                 <label>Email</label>
@@ -33,7 +36,7 @@ export default class Login extends React.Component {
               </Form.Field>
 
               <Form.Field>
-                <div style={{diplay:'inline'}}>
+                <div style={{display: 'inline', fontWeight: 'bold'}}>
                   <label>Password</label>
                   <Link style={{float:'right'}} to="/recover-password">Forgot Password?</Link>
                 </div>
@@ -43,10 +46,24 @@ export default class Login extends React.Component {
               <Button primary type='submit'>Submit</Button>
             </Form>
           </Grid.Column>
-          <Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered>
+          <Grid.Column mobile={16} tablet={8} computer={4}>
+            <Divider />
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered>
+          <Grid.Column mobile={16} tablet={8} computer={4}>
+            <div>
+              Don't have an account? <Link to="/signup">Sign up now >></Link>
+            </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>
     )
   }
 }
+
+export default Login

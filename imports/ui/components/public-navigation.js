@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Menu } from 'semantic-ui-react'
+import { Link } from 'react-router';
 
 // export const PublicNavigation = () => (
 //   <Nav pullRight>
@@ -12,10 +13,17 @@ import { Menu } from 'semantic-ui-react'
 //   </Nav>
 // );
 
-export default class PublicNavigation extends Component {
+class PublicNavigation extends React.Component {
   state = { activeItem: 'home' }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleSignupClick = (e, { name }) => {
+    this.setState({ activeItem: name })
+
+  }
+
+  handleLoginClick = (e, { name }) => {
+    this.setState({ activeItem: name })
+  }
 
   render() {
     const {activeItem} = this.state
@@ -24,10 +32,16 @@ export default class PublicNavigation extends Component {
       <Menu secondary>
         <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
         <Menu.Menu position='right'>
-          <Menu.Item name='signup' active={activeItem === 'signup'} onClick={this.handleItemClick} />
-          <Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} />
+          <Menu.Item active={activeItem === 'signup'}>
+            <Link to="/signup">Signup</Link>
+          </Menu.Item>
+          <Menu.Item active={activeItem === 'login'}>
+            <Link to="/login">Login</Link>
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
     )
   }
 }
+
+export default PublicNavigation

@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import AppNavigation from '../containers/app-navigation'
 
-export default class App extends Component {
+class App extends React.Component {
   // propTypes: {
   //   children: React.PropTypes.element.isRequired,
   // }
@@ -17,3 +17,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default App
