@@ -24,7 +24,8 @@ export default class PublicNavigation extends Component {
       <Menu secondary>
         <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
         <Menu.Menu position='right'>
-          <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
+          <Menu.Item name='signup' active={activeItem === 'signup'} onClick={this.handleItemClick} />
+          <Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} />
         </Menu.Menu>
       </Menu>
     )
