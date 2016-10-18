@@ -7,6 +7,7 @@ import Index from '../../ui/pages/index'
 
 import Login from '../../ui/pages/login'
 import Signup from '../../ui/pages/signup';
+import Account from '../../ui/pages/account';
 
 // import { NotFound } from '../../ui/pages/not-found';
 // import { RecoverPassword } from '../../ui/pages/recover-password';
@@ -29,6 +30,7 @@ Meteor.startup(() => {
         <IndexRoute name="index" component={ Index } />
         <Route name="login" path="/login" component={ Login } />
         <Route name="signup" path="/signup" component={ Signup } />
+        <Route name="profile" path="/account" component={ Account } />
       </Route>
     </Router>,
     document.getElementById('react-root')

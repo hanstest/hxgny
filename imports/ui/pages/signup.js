@@ -15,15 +15,12 @@ const states = [
 class Signup extends React.Component {
   state = { serializedForm: {} }
 
-  // componentDidMount() {
-  //   handleSignup({ component: this });
-  // }
-
   handleChange = (e, { value }) => this.setState({ value })
 
   handleSubmit = (e, serializedForm) => {
     e.preventDefault()
     this.setState({ serializedForm })
+    console.log(state)
     handleSignup(serializedForm)
   }
 
@@ -102,7 +99,6 @@ class Signup extends React.Component {
               <Message>
                 <pre>serializedForm: {JSON.stringify(serializedForm, null, 2)}</pre>
               </Message>
-
 
             </Form>
           </Grid.Column>

@@ -1,27 +1,41 @@
 import { browserHistory } from 'react-router'
 import { Accounts } from 'meteor/accounts-base'
 
-const getUserData = (options) => ({
-  email: options.email,
-  password: options.password,
+const getUserData = (options) => {
+  let user = {}
+  Object.assign(user, options)
 
-  // TODO Update other info
-  profile: {
-    name: {
-      first: options.firstName,
-      last: options.lastName,
-      chinese: options.chineseName,
-    },
-  },
-})
+  let students = []
+  if (options.fatherAsStudent) {
+    students.push({
+      firstName: options.fatherFirstName,
+      lastName: options.fatherLastName,
+      chineseName: options.fatherChineseName,
+    })
+  }
+  if (options.motherAsStudent) {
+    students.push({
+      firstName: options.motherFirstName,
+      lastName: options.motherLastName,
+      chineseName: options.motherChineseName,
+    })
+  }
+  user.students = students
 
-const signUp = (options) => {
+  // TODO Testing
+  user.email = 'test@example.com'
+  user.password = 'password'
+
+  return user
+}
+
+const signup = (options) => {
   const user = getUserData(options);
 
   Accounts.createUser(user, (error) => {
     if (error) {
       // TODO Properly handle the error
-      alert(error.reason)
+      console.log('Error: ' + error.reason)
     } else {
       browserHistory.push('/')
       // TODO Update the confirmation
