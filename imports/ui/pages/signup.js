@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Form, Button, Input, Header, Divider, Checkbox, Message } from 'semantic-ui-react'
 import { Link } from 'react-router';
-// import { handleSignup } from '../../modules/signup';
+import handleSignup from '../../modules/signup';
 
 const states = [
   { text: 'CT', value: 'CT' },
@@ -24,8 +24,7 @@ class Signup extends React.Component {
   handleSubmit = (e, serializedForm) => {
     e.preventDefault()
     this.setState({ serializedForm })
-    // alert(JSON.stringify(serializedForm, null, 2));
-    // handleSignup(serializedForm)
+    handleSignup(serializedForm)
   }
 
   render() {
@@ -58,7 +57,7 @@ class Signup extends React.Component {
                       <Input name='fatherFirstName' />
                       <label>Last Name</label>
                       <Input name='fatherLastName' />
-                      <label>Chinese Name</label>
+                      <label>中文姓名</label>
                       <Input name='fatherChineseName' />
                       <Checkbox name='fatherAsStudent' style={{paddingTop:'5px'}} label='Add as student' toggle />
                     </Grid.Column>
@@ -68,7 +67,7 @@ class Signup extends React.Component {
                       <Input name='motherFirstName' />
                       <label>Last Name</label>
                       <Input name='motherLastName' />
-                      <label>Chinese Name</label>
+                      <label>中文姓名</label>
                       <Input name='motherChineseName' />
                       <Checkbox name='motherAsStudent' style={{paddingTop:'5px'}} label='Add as student' toggle />
                     </Grid.Column>
