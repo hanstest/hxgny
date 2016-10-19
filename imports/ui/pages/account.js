@@ -22,7 +22,7 @@ class Account extends React.Component {
     return (
       <Grid columns={1}>
         <Grid.Row centered>
-          <Grid.Column mobile={16} tablet={16} computer={14}>
+          <Grid.Column mobile={16} tablet={16} computer={16}>
 
             <Menu attached='top' tabular>
               <Menu.Item name='ProfileDetails' index={0} active={activeItemTop === 'ProfileDetails'} onClick={this.handleTopItemClick} />
@@ -32,7 +32,7 @@ class Account extends React.Component {
             <Segment attached='bottom'>
               <div hidden={activeItemTop !== 'ProfileDetails'}>
                 <Grid>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
                       <Menu.Item
                         name='PersonalDetails'
@@ -48,7 +48,7 @@ class Account extends React.Component {
                       />
                     </Menu>
                   </Grid.Column>
-                  <Grid.Column stretched width={13}>
+                  <Grid.Column stretched width={14}>
                     <Segment>
                       User profile.
                     </Segment>
