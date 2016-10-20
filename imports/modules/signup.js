@@ -22,10 +22,6 @@ const getUserData = (options) => {
   }
   user.students = students
 
-  // TODO Testing
-  user.email = 'test@example.com'
-  user.password = 'password'
-
   return user
 }
 
@@ -37,7 +33,7 @@ const signup = (options) => {
       // TODO Properly handle the error
       console.log('Error: ' + error.reason)
     } else {
-      browserHistory.push('/')
+      browserHistory.push('/account')
       // TODO Update the confirmation
       console.log('Successfully create a user!')
     }

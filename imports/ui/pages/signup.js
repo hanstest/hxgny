@@ -40,7 +40,7 @@ class Signup extends React.Component {
 
               <Form.Group widths='equal'>
                 <Form.Input label='Email' name='email' icon='mail' iconPosition='left' placeholder='david@example.com' />
-                <Form.Input label='Password' name='password' icon='lock' iconPosition='left' placeholder='password' />
+                <Form.Input type='password' label='Password' name='password' icon='lock' iconPosition='left' placeholder='password' />
               </Form.Group>
 
               <Divider section/>

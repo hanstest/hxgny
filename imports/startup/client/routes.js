@@ -14,14 +14,14 @@ import Account from '../../ui/pages/account';
 // import { ResetPassword } from '../../ui/pages/reset-password';
 
 
-// const requireAuth = (nextState, replace) => {
-//   if (!Meteor.loggingIn() && !Meteor.userId()) {
-//     replace({
-//       pathname: '/login',
-//       state: { nextPathname: nextState.location.pathname },
-//     });
-//   }
-// };
+const requireAuth = (nextState, replace) => {
+  if (!Meteor.loggingIn() && !Meteor.userId()) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname },
+    });
+  }
+};
 
 Meteor.startup(() => {
   render(
@@ -30,7 +30,8 @@ Meteor.startup(() => {
         <IndexRoute name="index" component={ Index } />
         <Route name="login" path="/login" component={ Login } />
         <Route name="signup" path="/signup" component={ Signup } />
-        <Route name="profile" path="/account" component={ Account } />
+        <Route name="account" path="/account" component={ Account } />
+        {/*<Route name="account" path="/account" component={ Account } onEnter={ requireAuth } />*/}
       </Route>
     </Router>,
     document.getElementById('react-root')

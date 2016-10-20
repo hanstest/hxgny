@@ -94,7 +94,6 @@ class CourseScheduling extends React.Component {
             <Table.Row textAlign='center'>
               <Table.HeaderCell>修改</Table.HeaderCell>
               <Table.HeaderCell>删除</Table.HeaderCell>
-              <Table.HeaderCell>编号</Table.HeaderCell>
               <Table.HeaderCell>学期</Table.HeaderCell>
               <Table.HeaderCell>班级</Table.HeaderCell>
               <Table.HeaderCell>老师</Table.HeaderCell>
@@ -114,7 +113,6 @@ class CourseScheduling extends React.Component {
             <Table.Row textAlign='center'>
               <Table.Cell icon='write'/>
               <Table.Cell icon='trash'/>
-              <Table.Cell>1789 (3)</Table.Cell>
               <Table.Cell>2016 秋季</Table.Cell>
               <Table.Cell>启蒙一班 (Pre-K C1)</Table.Cell>
               <Table.Cell>韩璐璐</Table.Cell>

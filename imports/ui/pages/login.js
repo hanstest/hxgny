@@ -40,7 +40,7 @@ class Login extends React.Component {
                   <label>Password</label>
                   <Link style={{float:'right'}} to="/recover-password">Forgot Password?</Link>
                 </div>
-                <Input name='password' icon='lock' iconPosition='left' placeholder='password' />
+                <Input type='password' name='password' icon='lock' iconPosition='left' placeholder='password' />
               </Form.Field>
 
               <Button primary type='submit'>Submit</Button>
