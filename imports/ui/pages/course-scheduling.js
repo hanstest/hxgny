@@ -31,15 +31,15 @@ const optionsRecordsPerPage = [
 ]
 
 class CourseScheduling extends React.Component {
-  state = { optionsSemester, optionsCourseType, optionsRecordsPerPage }
+  state = { optionsSemester, optionsCourseType, optionsRecordsPerPage };
 
   handleSemesterChange = (e, { value }) => this.setState({ semesterSelected: value })
   handleCourseTypeChange = (e, { value }) => this.setState({ courseTypeSelected: value })
   handleRecordsPerPageChange = (e, { value }) => this.setState({ recordsPerPageSelected: value })
   handleSearch = (semesterSelected, courseTypeSelected, recordsPerPageSelected) => {
-    console.log(semesterSelected);
-    console.log(courseTypeSelected);
-    console.log(recordsPerPageSelected);
+    console.log(semesterSelected)
+    console.log(courseTypeSelected)
+    console.log(recordsPerPageSelected)
   }
 
   render() {
@@ -111,8 +111,8 @@ class CourseScheduling extends React.Component {
 
           <Table.Body>
             <Table.Row textAlign='center'>
-              <Table.Cell icon='write'/>
-              <Table.Cell icon='trash'/>
+              <Table.Cell icon='write' />
+              <Table.Cell icon='trash' />
               <Table.Cell>2016 秋季</Table.Cell>
               <Table.Cell>启蒙一班 (Pre-K C1)</Table.Cell>
               <Table.Cell>韩璐璐</Table.Cell>

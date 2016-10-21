@@ -4,19 +4,12 @@ import { Grid, Form, Button, Input, Header, Divider } from 'semantic-ui-react'
 import handleLogin from '../../modules/login'
 
 class Login extends React.Component {
-  state = { serializedForm: {} }
-
-  // componentDidMount() {
-  //   handleLogin({ component: this });
-  // }
-
-
   handleSubmit = (e, serializedForm) => {
     e.preventDefault()
     this.setState({ serializedForm })
     // alert(JSON.stringify(serializedForm, null, 2));
     handleLogin(serializedForm)
-  }
+  };
 
   render() {
     return (
@@ -36,9 +29,9 @@ class Login extends React.Component {
               </Form.Field>
 
               <Form.Field>
-                <div style={{display: 'inline', fontWeight: 'bold'}}>
+                <div style={{ display: 'inline', fontWeight: 'bold' }}>
                   <label>Password</label>
-                  <Link style={{float:'right'}} to="/recover-password">Forgot Password?</Link>
+                  <Link style={{ float: 'right' }} to='/recover-password'>Forgot Password?</Link>
                 </div>
                 <Input type='password' name='password' icon='lock' iconPosition='left' placeholder='password' />
               </Form.Field>
@@ -57,7 +50,7 @@ class Login extends React.Component {
         <Grid.Row centered>
           <Grid.Column mobile={16} tablet={8} computer={4}>
             <div>
-              Don't have an account? <Link to="/signup">Sign up now >></Link>
+              Don't have an account? <Link to='/signup'>Sign up now >></Link>
             </div>
           </Grid.Column>
         </Grid.Row>

@@ -2,22 +2,22 @@ import React from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
 
-let activeItems = ['PersonalDetails', 'CourseScheduling'];
+const activeItems = ['PersonalDetails', 'CourseScheduling']
 
 class Account extends React.Component {
-  state = { activeItemTop: 'ProfileDetails', activeItemLeft: 'PersonalDetails' };
+  state = { activeItemTop: 'ProfileDetails', activeItemLeft: 'PersonalDetails' }
 
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
   };
 
   handleLeftItemClick = (e, { name, index }) => {
-    this.setState({ activeItemLeft: name });
-    activeItems[index] = name;
+    this.setState({ activeItemLeft: name })
+    activeItems[index] = name
   };
 
   render() {
-    const { activeItemTop, activeItemLeft } = this.state;
+    const { activeItemTop, activeItemLeft } = this.state
 
     return (
       <Grid columns={1}>
@@ -25,8 +25,18 @@ class Account extends React.Component {
           <Grid.Column mobile={16} tablet={16} computer={16}>
 
             <Menu attached='top' tabular>
-              <Menu.Item name='ProfileDetails' index={0} active={activeItemTop === 'ProfileDetails'} onClick={this.handleTopItemClick} />
-              <Menu.Item name='CourseManagement' index={1} active={activeItemTop === 'CourseManagement'} onClick={this.handleTopItemClick} />
+              <Menu.Item
+                name='ProfileDetails'
+                index={0}
+                active={activeItemTop === 'ProfileDetails'}
+                onClick={this.handleTopItemClick}
+              />
+              <Menu.Item
+                name='CourseManagement'
+                index={1}
+                active={activeItemTop === 'CourseManagement'}
+                onClick={this.handleTopItemClick}
+              />
             </Menu>
 
             <Segment attached='bottom'>
@@ -64,12 +74,14 @@ class Account extends React.Component {
                         name='CourseScheduling'
                         index={1}
                         active={activeItemLeft === 'CourseScheduling'}
-                        onClick={this.handleLeftItemClick} />
+                        onClick={this.handleLeftItemClick}
+                      />
                       <Menu.Item
                         name='CourseCatalog'
                         index={1}
                         active={activeItemLeft === 'CourseCatalog'}
-                        onClick={this.handleLeftItemClick} />
+                        onClick={this.handleLeftItemClick}
+                      />
                     </Menu>
                   </Grid.Column>
                   <Grid.Column stretched width={13}>
@@ -89,8 +101,6 @@ class Account extends React.Component {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-
-
     )
   }
 }

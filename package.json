@@ -15,7 +15,8 @@
     "semantic-ui-react": "^0.56.1"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.4",
+    "eslint": "^2.13.1",
+    "eslint-config-ta": "^5.2.0",
     "babel-plugin-transform-class-properties": "^6.16.0"
   }
 }
