@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
 import { Meteor } from 'meteor/meteor'
 
 const login = (options) => {
@@ -9,7 +9,7 @@ const login = (options) => {
 
   Meteor.loginWithPassword(email, password, (error) => {
     if (error) {
-      alert(error.reason)
+      // console.log(error.reason)
     } else {
       browserHistory.push('/account')
     }

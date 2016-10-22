@@ -7,7 +7,6 @@ class Login extends React.Component {
   handleSubmit = (e, serializedForm) => {
     e.preventDefault()
     this.setState({ serializedForm })
-    // alert(JSON.stringify(serializedForm, null, 2));
     handleLogin(serializedForm)
   };
 

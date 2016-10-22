@@ -2,10 +2,10 @@ import { browserHistory } from 'react-router'
 import { Accounts } from 'meteor/accounts-base'
 
 const getUserData = (options) => {
-  let user = {}
+  const user = {}
   Object.assign(user, options)
 
-  let students = []
+  const students = []
   if (options.fatherAsStudent) {
     students.push({
       firstName: options.fatherFirstName,
@@ -26,16 +26,16 @@ const getUserData = (options) => {
 }
 
 const signup = (options) => {
-  const user = getUserData(options);
+  const user = getUserData(options)
 
   Accounts.createUser(user, (error) => {
     if (error) {
       // TODO Properly handle the error
-      console.log('Error: ' + error.reason)
+      // console.log('Error: ' + error.reason)
     } else {
       browserHistory.push('/account')
       // TODO Update the confirmation
-      console.log('Successfully create a user!')
+      // console.log('Successfully create a user!')
     }
   })
 }
