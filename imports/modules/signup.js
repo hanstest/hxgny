@@ -1,23 +1,35 @@
 import { browserHistory } from 'react-router'
 import { Accounts } from 'meteor/accounts-base'
 
-const getUserData = (options) => {
+/**
+ * Create a user
+ * @param userInfo Information about the user
+ * @param userInfo.fatherAsStudent indicator whether the father is a student
+ * @param userInfo.fatherFirstName the first name of the father
+ * @param userInfo.fatherLastName the last name of the father
+ * @param userInfo.fatherChineseName the Chinese name of the father
+ * @param userInfo.motherAsStudent indicator whether the mother is a student
+ * @param userInfo.motherFirstName the first name of the mother
+ * @param userInfo.motherLastName the last name of the mother
+ * @param userInfo.motherChineseName the Chinese name of the mother
+ */
+const getUserData = (userInfo) => {
   const user = {}
-  Object.assign(user, options)
+  Object.assign(user, userInfo)
 
   const students = []
-  if (options.fatherAsStudent) {
+  if (userInfo.fatherAsStudent) {
     students.push({
-      firstName: options.fatherFirstName,
-      lastName: options.fatherLastName,
-      chineseName: options.fatherChineseName,
+      firstName: userInfo.fatherFirstName,
+      lastName: userInfo.fatherLastName,
+      chineseName: userInfo.fatherChineseName,
     })
   }
-  if (options.motherAsStudent) {
+  if (userInfo.motherAsStudent) {
     students.push({
-      firstName: options.motherFirstName,
-      lastName: options.motherLastName,
-      chineseName: options.motherChineseName,
+      firstName: userInfo.motherFirstName,
+      lastName: userInfo.motherLastName,
+      chineseName: userInfo.motherChineseName,
     })
   }
   user.students = students
