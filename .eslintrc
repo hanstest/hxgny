@@ -16,5 +16,8 @@
       "switches": "never",
       "classes": "never"
     }]
+  },
+  "settings": {
+    "import/resolver": "meteor"
   }
 }
