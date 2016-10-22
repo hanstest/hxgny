@@ -37,9 +37,9 @@ class CourseScheduling extends React.Component {
   handleCourseTypeChange = (e, { value }) => this.setState({ courseTypeSelected: value })
   handleRecordsPerPageChange = (e, { value }) => this.setState({ recordsPerPageSelected: value })
   handleSearch = (semesterSelected, courseTypeSelected, recordsPerPageSelected) => {
-    console.log(semesterSelected)
-    console.log(courseTypeSelected)
-    console.log(recordsPerPageSelected)
+    // console.log(semesterSelected)
+    // console.log(courseTypeSelected)
+    // console.log(recordsPerPageSelected)
   }
 
   render() {
