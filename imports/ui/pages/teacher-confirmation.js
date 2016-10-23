@@ -6,8 +6,7 @@ class TeacherConfirmation extends React.Component {
   render() {
     return (
       <Message>
-        <pre>email: {JSON.stringify(email, null, 2)}</pre>
-        <pre>serializedForm: {JSON.stringify(serializedForm, null, 2)}</pre>
+        <p>Created a new teacher successfully!</p>
       </Message>
     )
   }
