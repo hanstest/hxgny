@@ -1,11 +1,13 @@
 import React from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
+import TeacherList from './teacher-list'
+import TeacherCreation from './teacher-creation'
 
 const activeItems = ['PersonalDetails', 'CourseScheduling']
 
 class Account extends React.Component {
-  state = { activeItemTop: 'ProfileDetails', activeItemLeft: 'PersonalDetails' }
+  state = { activeItemTop: '个人中心', activeItemLeft: 'PersonalDetails' }
 
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
@@ -26,21 +28,27 @@ class Account extends React.Component {
 
             <Menu attached='top' tabular>
               <Menu.Item
-                name='ProfileDetails'
+                name='个人中心'
                 index={0}
-                active={activeItemTop === 'ProfileDetails'}
+                active={activeItemTop === '个人中心'}
                 onClick={this.handleTopItemClick}
               />
               <Menu.Item
-                name='CourseManagement'
+                name='教师管理'
                 index={1}
-                active={activeItemTop === 'CourseManagement'}
+                active={activeItemTop === '教师管理'}
+                onClick={this.handleTopItemClick}
+              />
+              <Menu.Item
+                name='排课管理'
+                index={1}
+                active={activeItemTop === '排课管理'}
                 onClick={this.handleTopItemClick}
               />
             </Menu>
 
             <Segment attached='bottom'>
-              <div hidden={activeItemTop !== 'ProfileDetails'}>
+              <div hidden={activeItemTop !== '个人中心'}>
                 <Grid>
                   <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
@@ -66,7 +74,38 @@ class Account extends React.Component {
                 </Grid>
               </div>
 
-              <div hidden={activeItemTop !== 'CourseManagement'}>
+              <div hidden={activeItemTop !== '教师管理'}>
+                <Grid>
+                  <Grid.Column width={3}>
+                    <Menu fluid pointing secondary vertical>
+                      <Menu.Item
+                        name='添加教师'
+                        index={1}
+                        active={activeItemLeft === '添加教师'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
+                        name='教师列表'
+                        index={1}
+                        active={activeItemLeft === '教师列表'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                    </Menu>
+                  </Grid.Column>
+                  <Grid.Column stretched width={13}>
+                    <Segment>
+                      <div hidden={activeItemLeft !== '添加教师'}>
+                        <TeacherCreation />
+                      </div>
+                      <div hidden={activeItemLeft !== '教师列表'}>
+                        <TeacherList />
+                      </div>
+                    </Segment>
+                  </Grid.Column>
+                </Grid>
+              </div>
+
+              <div hidden={activeItemTop !== '排课管理'}>
                 <Grid>
                   <Grid.Column width={3}>
                     <Menu fluid pointing secondary vertical>

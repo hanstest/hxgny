@@ -31,12 +31,24 @@ const optionsRecordsPerPage = [
 ]
 
 class CourseScheduling extends React.Component {
-  state = { optionsSemester, optionsCourseType, optionsRecordsPerPage };
+  state = {
+    optionsSemester,
+    optionsCourseType,
+    optionsRecordsPerPage,
+    semesterSelected: optionsSemester[0].value,
+    courseTypeSelected: 'ALL',
+    recordsPerPageSelected: 'ALL',
+  }
 
   handleSemesterChange = (e, { value }) => this.setState({ semesterSelected: value })
   handleCourseTypeChange = (e, { value }) => this.setState({ courseTypeSelected: value })
   handleRecordsPerPageChange = (e, { value }) => this.setState({ recordsPerPageSelected: value })
   handleSearch = (semesterSelected, courseTypeSelected, recordsPerPageSelected) => {
+    console.log(semesterSelected)
+    console.log(courseTypeSelected)
+    console.log(recordsPerPageSelected)
+  }
+  handleAddCourse = (semesterSelected, courseTypeSelected, recordsPerPageSelected) => {
     // console.log(semesterSelected)
     // console.log(courseTypeSelected)
     // console.log(recordsPerPageSelected)
@@ -79,13 +91,23 @@ class CourseScheduling extends React.Component {
           </Grid.Column>
 
           <Grid.Column width={2}>
-            <Button
-              primary
-              type='submit'
-              onClick={this.handleSearch.bind(null, semesterSelected, courseTypeSelected, recordsPerPageSelected)}
-            >
-              Search
-            </Button>
+            <Button.Group>
+              <Button
+                primary
+                type='submit'
+                onClick={this.handleSearch(semesterSelected, courseTypeSelected, recordsPerPageSelected)}
+              >
+                搜索课程
+              </Button>
+              <Button.Or />
+              <Button
+                positive
+                type='submit'
+                onClick={this.handleAddCourse(semesterSelected, courseTypeSelected, recordsPerPageSelected)}
+              >
+                添加课程
+              </Button>
+            </Button.Group>
           </Grid.Column>
         </Grid>
 
@@ -110,6 +132,22 @@ class CourseScheduling extends React.Component {
           </Table.Header>
 
           <Table.Body>
+            <Table.Row textAlign='center'>
+              <Table.Cell icon='save' />
+              <Table.Cell icon='trash' />
+              <Table.Cell>2016 秋季</Table.Cell>
+              <Table.Cell>启蒙一班 (Pre-K C1)</Table.Cell>
+              <Table.Cell>韩璐璐</Table.Cell>
+              <Table.Cell>A202</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+            </Table.Row>
             <Table.Row textAlign='center'>
               <Table.Cell icon='write' />
               <Table.Cell icon='trash' />

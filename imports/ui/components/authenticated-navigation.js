@@ -16,6 +16,10 @@ export default class AuthenticatedNavigation extends React.Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   handleLogout = () => Meteor.logout(() => browserHistory.push('/login'))
+  handleTeacherManagement = () => {
+    this.setState({ activeItem: name })
+    browserHistory.push('/admin/teacher')
+  }
 
   render() {
     const { activeItem } = this.state
@@ -23,7 +27,6 @@ export default class AuthenticatedNavigation extends React.Component {
     return (
         <Menu secondary>
           <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-          <Menu.Item name='friends' active={activeItem === 'friends'} onClick={this.handleItemClick} />
           <Menu.Menu position='right'>
             <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleLogout} />
           </Menu.Menu>
