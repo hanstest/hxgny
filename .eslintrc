@@ -15,7 +15,8 @@
       "blocks": "never",
       "switches": "never",
       "classes": "never"
-    }]
+    }],
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }]
   },
   "settings": {
     "import/resolver": "meteor"

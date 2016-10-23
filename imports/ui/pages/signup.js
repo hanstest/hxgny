@@ -20,7 +20,7 @@ class Signup extends React.Component {
     e.preventDefault()
     this.setState({ serializedForm })
     handleSignup(serializedForm)
-  };
+  }
 
   render() {
     const { serializedForm, value } = this.state
