@@ -3,10 +3,10 @@ import { Roles } from 'meteor/alanning:roles'
 import { Accounts } from 'meteor/accounts-base'
 
 const users = [{
-  email: 'zhaohui.han@gmail.com',
-  password: 'password',
+  email: 'hxgny.org@gmail.com',
+  password: 'HuaXiaNY11',
   profile: {
-    name: { first: 'David', last: 'Han' },
+    name: { first: 'Admin', last: 'HXGNY', chinese: '华夏大纽约管理员' },
   },
   roles: ['admin'],
 }]

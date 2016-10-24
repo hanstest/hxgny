@@ -40,7 +40,6 @@ class AddTeacher extends React.Component {
   
   handleChange = (e) => {
     e.preventDefault()
-    // console.log('Value changed to ' + e.target.value)
     this.setState({ email: e.target.value })
   }
   
@@ -53,8 +52,14 @@ class AddTeacher extends React.Component {
     // handleSignup(serializedForm)
   }
   
-  searchUser = (value) => {
-    // TODO Search user in database
+  searchUser = (email) => {
+    console.log('Clicked search user')
+    const user = Meteor.users.findOne({ 'emails.address': email })
+    if (user) {
+      console.log('Found user')
+      console.log(user)
+      this.setState({ firstName: user.profile.name.first })
+    }
   }
   
   render() {
