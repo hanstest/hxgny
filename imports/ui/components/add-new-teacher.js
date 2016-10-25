@@ -1,10 +1,31 @@
-// import { Accounts } from 'meteor/accounts-base'
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
-import { Grid, Button, Header, Form, Message, Confirm, Input } from 'semantic-ui-react'
+import { Grid, Button, Header, Form, Message, Confirm } from 'semantic-ui-react'
+
+const genders = [
+  { text: 'Male', value: 'male' },
+  { text: 'Female', value: 'female' },
+]
+
+const states = [
+  { text: 'CT', value: 'CT' },
+  { text: 'DE', value: 'DE' },
+  { text: 'MD', value: 'MD' },
+  { text: 'NJ', value: 'NJ' },
+  { text: 'NY', value: 'NY' },
+  { text: 'PA', value: 'PA' },
+]
 
 class AddNewTeacher extends React.Component {
-  state = { serializedForm: {}, open: false, firstName: '' };
+  state = {
+    formData: {},
+    open: false,
+    userExists: false,
+    didSearch: false,
+    first: '',
+    last: '',
+    chinese: '',
+  };
   
   show = () => this.setState({ open: true })
   
@@ -14,23 +35,54 @@ class AddNewTeacher extends React.Component {
   
   handleCancel = () => this.setState({ open: false })
   
-  handleSubmit = (e, serializedForm) => {
+  handleSubmit = (e, formData) => {
     e.preventDefault()
-    this.setState({ serializedForm })
-
-    console.log('Clicked search user: ' + serializedForm.email)
-    const user = Meteor.users.findOne({ 'emails.address': serializedForm.email })
-    console.log(user)
+    if (this.state.userExists) {
+      return
+    }
+    
+    const user = Meteor.users.findOne({ 'emails.address': formData.email })
+    this.setState({ didSearch: true })
     if (user) {
-      console.log('Found user')
-      this.setState({ firstName: user.profile.name.first })
+      this.setState({
+        first: user.profile.name.first,
+        last: user.profile.name.last,
+        chinese: user.profile.name.chinese,
+        street: user.profile.address.street,
+        city: user.profile.address.city,
+        state: user.profile.address.state,
+        zipcode: user.profile.address.zipcode,
+      })
+      this.setState({ userExists: true })
+    }
+  }
+  
+  updateTeacherInfo = (e, formData) => {
+    e.preventDefault()
+    this.setState({ formData })
+    
+    if (this.state.userExists) {
+      // TODO Update this user.
+    } else {
+      // TODO Create a new user.
+      const user = {
+        email: this.state.email,
+        password: 'NewTeacher',
+        profile: {
+          name: {
+            first: formData.first,
+            last: formData.last,
+            chinese: formData.chinese,
+          },
+          address: {},
+        },
+        roles: ['teacher'],
+      }
     }
   }
   
   render() {
-
-    Meteor.subscribe('allUsers')
-    const { serializedForm } = this.state
+    const { formData } = this.state
     return (
       <Grid textAlign='left' width={16}>
         <Grid.Row>
@@ -49,14 +101,55 @@ class AddNewTeacher extends React.Component {
                 iconPosition='left'
                 placeholder='david@example.com'
               />
-              <Button primary type='submit'>查找账户</Button>
+              <Button secondary type='submit'>查找账户</Button>
             </Form>
           </Grid.Column>
         </Grid.Row>
         
-        <Message>
-          <pre>serializedForm: {JSON.stringify(serializedForm, null, 2)}</pre>
-        </Message>
+        <Grid.Row>
+          <Grid.Column width={16}>
+            <Form onSubmit={this.updateTeacherInfo}>
+              <Form.Group widths='equal'>
+                <Form.Input
+                  label='First Name'
+                  name='first'
+                  placeholder='First Name'
+                  type='text'
+                  value={this.state.first}
+                />
+                <Form.Input
+                  label='Last Name'
+                  name='last'
+                  placeholder='Last Name'
+                  type='text'
+                  value={this.state.last}
+                />
+                <Form.Input
+                  label='Chinese Name'
+                  name='chinese'
+                  placeholder='中文姓名'
+                  type='text'
+                  value={this.state.chinese}
+                />
+                <Form.Select label='Gender' name='gender' options={genders} placeholder='Gender' />
+              </Form.Group>
+  
+              <Form.Group widths='equal'>
+                <Form.Input label='Street' name='street' type='text' value={this.state.street} />
+                <Form.Input label='City' name='city' type='text' value={this.state.city} />
+                <Form.Input label='State' name='state' type='text' value={this.state.state} />
+                <Form.Input label='Zip Code' name='zipcode' type='text' value={this.state.zipcode} />
+              </Form.Group>
+              
+              <Form.TextArea label='个人简介' name='description' placeholder='Tell us more about this teacher...' />
+              <Button primary type='submit'>更新资料</Button>
+            </Form>
+
+            <Message>
+              <pre>Form Data: {JSON.stringify(formData, null, 2)}</pre>
+            </Message>
+          </Grid.Column>
+        </Grid.Row>
         
         <Confirm
           open={this.state.open}

@@ -67,16 +67,16 @@ class Account extends React.Component {
                     </Menu>
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
-                    <Segment>
+                    <div>
                       User profile.
-                    </Segment>
+                    </div>
                   </Grid.Column>
                 </Grid>
               </div>
 
               <div hidden={activeItemTop !== '教师管理'}>
                 <Grid>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
                       <Menu.Item
                         name='添加教师'
@@ -92,22 +92,22 @@ class Account extends React.Component {
                       />
                     </Menu>
                   </Grid.Column>
-                  <Grid.Column stretched width={13}>
-                    <Segment>
+                  <Grid.Column stretched width={14}>
+                    <div>
                       <div hidden={activeItemLeft !== '添加教师'}>
                         <AddNewTeacher />
                       </div>
                       <div hidden={activeItemLeft !== '教师列表'}>
                         <TeacherList />
                       </div>
-                    </Segment>
+                    </div>
                   </Grid.Column>
                 </Grid>
               </div>
 
               <div hidden={activeItemTop !== '排课管理'}>
                 <Grid>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
                       <Menu.Item
                         name='CourseScheduling'
@@ -123,15 +123,15 @@ class Account extends React.Component {
                       />
                     </Menu>
                   </Grid.Column>
-                  <Grid.Column stretched width={13}>
-                    <Segment>
+                  <Grid.Column stretched width={14}>
+                    <div>
                       <div hidden={activeItemLeft !== 'CourseScheduling'}>
                         <CourseScheduling />
                       </div>
                       <div hidden={activeItemLeft !== 'CourseCatalog'}>
                         This is an stretched grid column. This segment will always match the tab height
                       </div>
-                    </Segment>
+                    </div>
                   </Grid.Column>
                 </Grid>
               </div>
