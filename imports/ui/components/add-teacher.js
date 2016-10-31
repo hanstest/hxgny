@@ -120,7 +120,7 @@ class AddTeacher extends React.Component {
               <Form.Group>
                 <Form.Input label='City' name='city' />
                 <Form.Select label='State' name='state' options={states} />
-                <Form.Input label='Zip Code' name='zipcode' />
+                <Form.Input label='Zip Code' name='zip' />
               </Form.Group>
               
               <Button primary type='submit'>Submit</Button>

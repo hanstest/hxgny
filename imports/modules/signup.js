@@ -18,7 +18,7 @@ import { Accounts } from 'meteor/accounts-base'
  * @param userInfo.street street name
  * @param userInfo.city city name
  * @param userInfo.state state name
- * @param userInfo.zipcode state name
+ * @param userInfo.zip state name
  */
 const getUserData = (userInfo) => {
   const user = {}
@@ -26,7 +26,7 @@ const getUserData = (userInfo) => {
   user.email = userInfo.email
   user.password = userInfo.password
   
-  const profile = { name: {}, father: {}, mother: {} }
+  const profile = { name: {}, father: {}, mother: {}, students: [] }
   if (userInfo.contact === 'father') {
     profile.name.first = userInfo.fatherFirstName
     profile.name.last = userInfo.fatherLastName
@@ -42,35 +42,33 @@ const getUserData = (userInfo) => {
   profile.mother.first = userInfo.motherFirstName
   profile.mother.last = userInfo.motherLastName
   profile.mother.chinese = userInfo.motherChineseName
-  user.profile = profile
-
-  const students = []
+  
   if (userInfo.fatherAsStudent) {
-    students.push({
-      firstName: userInfo.fatherFirstName,
-      lastName: userInfo.fatherLastName,
-      chineseName: userInfo.fatherChineseName,
+    profile.students.push({
+      first: userInfo.fatherFirstName,
+      last: userInfo.fatherLastName,
+      chinese: userInfo.fatherChineseName,
     })
   }
   if (userInfo.motherAsStudent) {
-    students.push({
-      firstName: userInfo.motherFirstName,
-      lastName: userInfo.motherLastName,
-      chineseName: userInfo.motherChineseName,
+    profile.students.push({
+      first: userInfo.motherFirstName,
+      last: userInfo.motherLastName,
+      chinese: userInfo.motherChineseName,
     })
   }
-  user.students = students
+  
+  user.profile = profile
   
   user.profile.address = {
     street: userInfo.street,
     city: userInfo.city,
     state: userInfo.state,
-    zipcode: userInfo.zipcode,
+    zip: userInfo.zip,
   }
   
   user.roles = ['user']
   
-  console.log(user)
   return user
 }
 

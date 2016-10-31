@@ -3,9 +3,7 @@ import React from 'react'
 import { Grid, Button, Header, Form, Message, Confirm } from 'semantic-ui-react'
 import states from '../../api/data/states'
 import genders from '../../api/data/genders'
-import { browserHistory } from 'react-router'
-import { Accounts } from 'meteor/accounts-base'
-import { Roles } from 'meteor/alanning:roles'
+import { insertUser } from '../../api/users/methods.js'
 
 class AddNewTeacher extends React.Component {
   state = {
@@ -13,6 +11,7 @@ class AddNewTeacher extends React.Component {
     open: false,
     userExists: false,
     didSearch: false,
+    email: '',
     first: '',
     last: '',
     chinese: '',
@@ -35,7 +34,7 @@ class AddNewTeacher extends React.Component {
     }
     
     const user = Meteor.users.findOne({ 'emails.address': formData.email })
-    this.setState({ didSearch: true })
+    this.setState({ didSearch: true, email: formData.email })
     if (user) {
       let userInfo = Object.assign({}, user.profile.name)
       userInfo = Object.assign(userInfo, user.profile.address)
@@ -52,6 +51,7 @@ class AddNewTeacher extends React.Component {
     
     if (this.state.userExists) {
       // TODO Update this user.
+      console.log('This user exists!!!')
     } else {
       const email = this.state.email
       const password = 'NewTeacher123'
@@ -61,18 +61,25 @@ class AddNewTeacher extends React.Component {
           last: formData.last,
           chinese: formData.chinese,
         },
+        gender: formData.gender,
         address: {
-          street: formData.address,
+          street: formData.street,
           city: formData.city,
           state: formData.state,
-          zipcode: formData.zipcode,
+          zip: formData.zip,
         },
       }
       const roles = ['teacher']
-      
-      const userId = Accounts.createUser({ email, password, profile })
-      console.log('userId: ' + userId)
-      Roles.addUsersToRoles(userId, roles)
+      // const user = { email, password, profile, roles }
+      insertUser.call({
+        email, password, profile, roles,
+      }, (error) => {
+        if (error) {
+          console.log('Failed to create user: ' + error)
+        } else {
+          console.log('Successfully created a user!!!')
+        }
+      })
     }
   }
   
@@ -97,7 +104,7 @@ class AddNewTeacher extends React.Component {
                 placeholder='david@example.com'
               />
               <Button secondary type='submit'>查找账户</Button>
-              {this.state.didSearch && !this.state.userExists && <Button disabled>用户不存在</Button>}
+              {this.state.didSearch && !this.state.userExists && <Button disabled color='red'>用户不存在</Button>}
             </Form>
           </Grid.Column>
         </Grid.Row>
@@ -141,13 +148,15 @@ class AddNewTeacher extends React.Component {
                   placeholder='Select state'
                   defaultValue={this.state.state}
                 />
-                <Form.Input label='Zip Code' name='zipcode' type='text' defaultValue={this.state.zipcode} />
+                <Form.Input label='Zip Code' name='zip' type='text' defaultValue={this.state.zip} />
               </Form.Group>
               
               <Form.TextArea label='个人简介' name='description' placeholder='Tell us more about this teacher...' />
-              {this.state.userExists ?
+              {
+                this.state.userExists ?
                 <Button primary type='submit'>更新资料</Button> :
-                <Button primary type='submit'>添加老师</Button>}
+                <Button primary type='submit'>添加老师</Button>
+              }
               
             </Form>
 
