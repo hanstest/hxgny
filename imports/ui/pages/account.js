@@ -4,19 +4,19 @@ import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
 import AddNewTeacher from '../components/add-new-teacher'
 
-const activeItems = ['PersonalDetails', 'CourseScheduling']
+const activeItems = ['个人资料', '添加教师', '课程设置']
 
 class Account extends React.Component {
-  state = { activeItemTop: '个人中心', activeItemLeft: 'PersonalDetails' }
+  state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
 
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
-  };
+  }
 
   handleLeftItemClick = (e, { name, index }) => {
     this.setState({ activeItemLeft: name })
     activeItems[index] = name
-  };
+  }
 
   render() {
     const { activeItemTop, activeItemLeft } = this.state
@@ -40,9 +40,9 @@ class Account extends React.Component {
                 onClick={this.handleTopItemClick}
               />
               <Menu.Item
-                name='排课管理'
-                index={1}
-                active={activeItemTop === '排课管理'}
+                name='课程管理'
+                index={2}
+                active={activeItemTop === '课程管理'}
                 onClick={this.handleTopItemClick}
               />
             </Menu>
@@ -53,15 +53,15 @@ class Account extends React.Component {
                   <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
                       <Menu.Item
-                        name='PersonalDetails'
+                        name='个人资料'
                         index={0}
-                        active={activeItemLeft === 'PersonalDetails'}
+                        active={activeItemLeft === '个人资料'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
-                        name='CoursesEnrolled'
+                        name='注册课程'
                         index={0}
-                        active={activeItemLeft === 'CoursesEnrolled'}
+                        active={activeItemLeft === '注册课程'}
                         onClick={this.handleLeftItemClick}
                       />
                     </Menu>
@@ -105,30 +105,30 @@ class Account extends React.Component {
                 </Grid>
               </div>
 
-              <div hidden={activeItemTop !== '排课管理'}>
+              <div hidden={activeItemTop !== '课程管理'}>
                 <Grid>
                   <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
                       <Menu.Item
-                        name='CourseScheduling'
-                        index={1}
-                        active={activeItemLeft === 'CourseScheduling'}
+                        name='课程设置'
+                        index={2}
+                        active={activeItemLeft === '课程设置'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
-                        name='CourseCatalog'
-                        index={1}
-                        active={activeItemLeft === 'CourseCatalog'}
+                        name='课程列表'
+                        index={2}
+                        active={activeItemLeft === '课程列表'}
                         onClick={this.handleLeftItemClick}
                       />
                     </Menu>
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
                     <div>
-                      <div hidden={activeItemLeft !== 'CourseScheduling'}>
+                      <div hidden={activeItemLeft !== '课程设置'}>
                         <CourseScheduling />
                       </div>
-                      <div hidden={activeItemLeft !== 'CourseCatalog'}>
+                      <div hidden={activeItemLeft !== '课程列表'}>
                         This is an stretched grid column. This segment will always match the tab height
                       </div>
                     </div>

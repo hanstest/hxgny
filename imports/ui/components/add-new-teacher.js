@@ -1,20 +1,11 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
 import { Grid, Button, Header, Form, Message, Confirm } from 'semantic-ui-react'
-
-const genders = [
-  { text: 'Male', value: 'male' },
-  { text: 'Female', value: 'female' },
-]
-
-const states = [
-  { text: 'CT', value: 'CT' },
-  { text: 'DE', value: 'DE' },
-  { text: 'MD', value: 'MD' },
-  { text: 'NJ', value: 'NJ' },
-  { text: 'NY', value: 'NY' },
-  { text: 'PA', value: 'PA' },
-]
+import states from '../../api/data/states'
+import genders from '../../api/data/genders'
+import { browserHistory } from 'react-router'
+import { Accounts } from 'meteor/accounts-base'
+import { Roles } from 'meteor/alanning:roles'
 
 class AddNewTeacher extends React.Component {
   state = {
@@ -36,6 +27,8 @@ class AddNewTeacher extends React.Component {
   handleCancel = () => this.setState({ open: false })
   
   handleSubmit = (e, formData) => {
+    this.setState({ didSearch: false, userExists: false })
+    
     e.preventDefault()
     if (this.state.userExists) {
       return
@@ -44,16 +37,12 @@ class AddNewTeacher extends React.Component {
     const user = Meteor.users.findOne({ 'emails.address': formData.email })
     this.setState({ didSearch: true })
     if (user) {
-      this.setState({
-        first: user.profile.name.first,
-        last: user.profile.name.last,
-        chinese: user.profile.name.chinese,
-        street: user.profile.address.street,
-        city: user.profile.address.city,
-        state: user.profile.address.state,
-        zipcode: user.profile.address.zipcode,
-      })
+      let userInfo = Object.assign({}, user.profile.name)
+      userInfo = Object.assign(userInfo, user.profile.address)
+      this.setState(userInfo)
       this.setState({ userExists: true })
+    } else {
+      this.setState({ userExists: false, first: '', last: '', chinese: '' })
     }
   }
   
@@ -64,20 +53,26 @@ class AddNewTeacher extends React.Component {
     if (this.state.userExists) {
       // TODO Update this user.
     } else {
-      // TODO Create a new user.
-      const user = {
-        email: this.state.email,
-        password: 'NewTeacher',
-        profile: {
-          name: {
-            first: formData.first,
-            last: formData.last,
-            chinese: formData.chinese,
-          },
-          address: {},
+      const email = this.state.email
+      const password = 'NewTeacher123'
+      const profile = {
+        name: {
+          first: formData.first,
+          last: formData.last,
+          chinese: formData.chinese,
         },
-        roles: ['teacher'],
+        address: {
+          street: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zipcode: formData.zipcode,
+        },
       }
+      const roles = ['teacher']
+      
+      const userId = Accounts.createUser({ email, password, profile })
+      console.log('userId: ' + userId)
+      Roles.addUsersToRoles(userId, roles)
     }
   }
   
@@ -102,54 +97,65 @@ class AddNewTeacher extends React.Component {
                 placeholder='david@example.com'
               />
               <Button secondary type='submit'>查找账户</Button>
+              {this.state.didSearch && !this.state.userExists && <Button disabled>用户不存在</Button>}
             </Form>
           </Grid.Column>
         </Grid.Row>
         
-        <Grid.Row>
+        {this.state.didSearch && <Grid.Row>
           <Grid.Column width={16}>
             <Form onSubmit={this.updateTeacherInfo}>
+              
               <Form.Group widths='equal'>
                 <Form.Input
                   label='First Name'
                   name='first'
                   placeholder='First Name'
                   type='text'
-                  value={this.state.first}
+                  defaultValue={this.state.first}
                 />
                 <Form.Input
                   label='Last Name'
                   name='last'
                   placeholder='Last Name'
                   type='text'
-                  value={this.state.last}
+                  defaultValue={this.state.last}
                 />
                 <Form.Input
                   label='Chinese Name'
                   name='chinese'
                   placeholder='中文姓名'
                   type='text'
-                  value={this.state.chinese}
+                  defaultValue={this.state.chinese}
                 />
-                <Form.Select label='Gender' name='gender' options={genders} placeholder='Gender' />
+                <Form.Select label='Gender' name='gender' options={genders} placeholder='Select gender' />
               </Form.Group>
   
               <Form.Group widths='equal'>
-                <Form.Input label='Street' name='street' type='text' value={this.state.street} />
-                <Form.Input label='City' name='city' type='text' value={this.state.city} />
-                <Form.Input label='State' name='state' type='text' value={this.state.state} />
-                <Form.Input label='Zip Code' name='zipcode' type='text' value={this.state.zipcode} />
+                <Form.Input label='Street' name='street' type='text' defaultValue={this.state.street} />
+                <Form.Input label='City' name='city' type='text' defaultValue={this.state.city} />
+                <Form.Select
+                  label='State'
+                  name='state'
+                  options={states}
+                  placeholder='Select state'
+                  defaultValue={this.state.state}
+                />
+                <Form.Input label='Zip Code' name='zipcode' type='text' defaultValue={this.state.zipcode} />
               </Form.Group>
               
               <Form.TextArea label='个人简介' name='description' placeholder='Tell us more about this teacher...' />
-              <Button primary type='submit'>更新资料</Button>
+              {this.state.userExists ?
+                <Button primary type='submit'>更新资料</Button> :
+                <Button primary type='submit'>添加老师</Button>}
+              
             </Form>
 
             <Message>
               <pre>Form Data: {JSON.stringify(formData, null, 2)}</pre>
             </Message>
           </Grid.Column>
-        </Grid.Row>
+        </Grid.Row>}
         
         <Confirm
           open={this.state.open}
