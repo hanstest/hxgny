@@ -3,6 +3,7 @@ import React from 'react'
 import { Grid, Button, Header, Form, Message, Confirm } from 'semantic-ui-react'
 import states from '../../api/data/states'
 import genders from '../../api/data/genders'
+import { Roles } from 'meteor/alanning:roles'
 
 class AddNewTeacher extends React.Component {
   state = {
@@ -68,16 +69,10 @@ class AddNewTeacher extends React.Component {
           zip: formData.zip,
         },
       }
-      const roles = ['teacher']
-      const user = { email, password, profile, roles }
       
-      Meteor.call('createUser', user, (err, res) => {
-        if (err) {
-          console.log('Failed to create user: ' + err.reason)
-        } else {
-          console.log('Successfully created user')
-        }
-      })
+      const user = { email, password, profile }
+      const roles = ['teacher']
+      Meteor.call('createNewUser', user, roles)
     }
   }
   

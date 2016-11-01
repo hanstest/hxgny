@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base'
 
 const users = [{
   email: 'hxgny.org@gmail.com',
-  password: 'HuaXiaNY11',
+  password: 'password',
   profile: {
     name: { first: 'Admin', last: 'HXGNY', chinese: '华夏大纽约管理员' },
   },
