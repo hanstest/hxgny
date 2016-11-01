@@ -24,7 +24,7 @@ const requireAuth = (nextState, replace) => {
 }
 
 Meteor.startup(() => {
-  Meteor.subscribe('allUsers')
+  Meteor.subscribe('users')
   
   render(
     <Router history={ browserHistory }>

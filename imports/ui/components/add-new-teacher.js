@@ -3,7 +3,6 @@ import React from 'react'
 import { Grid, Button, Header, Form, Message, Confirm } from 'semantic-ui-react'
 import states from '../../api/data/states'
 import genders from '../../api/data/genders'
-import { insertUser } from '../../api/users/methods.js'
 
 class AddNewTeacher extends React.Component {
   state = {
@@ -70,14 +69,13 @@ class AddNewTeacher extends React.Component {
         },
       }
       const roles = ['teacher']
-      // const user = { email, password, profile, roles }
-      insertUser.call({
-        email, password, profile, roles,
-      }, (error) => {
-        if (error) {
-          console.log('Failed to create user: ' + error)
+      const user = { email, password, profile, roles }
+      
+      Meteor.call('createUser', user, (err, res) => {
+        if (err) {
+          console.log('Failed to create user: ' + err.reason)
         } else {
-          console.log('Successfully created a user!!!')
+          console.log('Successfully created user')
         }
       })
     }
