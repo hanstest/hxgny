@@ -3,6 +3,9 @@ import { insertStudent } from '../../api/students/methods.js'
 import { Grid, Button, Header, Form } from 'semantic-ui-react'
 import genders from '../../api/data/genders'
 import NewUserConfirmation from './new-user-confirmation'
+import {DatePicker, DatePickerInput} from 'rc-datepicker';
+
+
 
 const handleInsertStudent = (formData) => {
   const student = {
@@ -30,6 +33,11 @@ class AddStudent extends React.Component {
     last: '',
     chinese: '',
     done: false,
+    date: '2/14/2008',
+  }
+  
+  onChange = (jsDate, dateString) => {
+    console.log(jsDate, dateString)
   }
   
   render() {
@@ -68,7 +76,26 @@ class AddStudent extends React.Component {
                   defaultValue={this.state.chinese}
                 />
                 <Form.Select label='Gender' name='gender' options={genders} placeholder='Select gender' />
+  
+                <div>
+                  <p>jsDate = {String(this.state.value)}</p>
+                  <div className='ui input'>
+                    <DatePickerInput
+                      displayFormat='DD/MM/YYYY'
+                      returnFormat='YYYY-MM-DD'
+                      className='my-react-component'
+                      defaultValue={this.state.yesterday}
+                      valueLink={linkState(this, 'value')}
+                      showOnInputClick
+                      placeholder='placeholder'
+                      locale='de'
+                      iconClassName='calendar icon'
+                    />
+                  </div>
+                </div>
+                
               </Form.Group>
+              
               <Button primary type='submit'>添加学生</Button>
             </Form>
           </Grid.Column>

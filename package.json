@@ -6,14 +6,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
+    "rc-datepicker": "^4.0.1",
     "react": "^15.3.2",
     "react-addons-pure-render-mixin": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-komposer": "^1.13.1",
     "react-router": "^2.8.1",
     "semantic-ui-css": "^2.2.4",
-    "semantic-ui-react": "^0.56.12",
-    "bcrypt": "^0.8.7"
+    "semantic-ui-react": "^0.56.12"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.16.0",
