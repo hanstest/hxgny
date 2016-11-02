@@ -59,6 +59,12 @@ class Account extends React.Component {
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
+                        name='添加学生'
+                        index={0}
+                        active={activeItemLeft === '添加学生'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
                         name='注册课程'
                         index={0}
                         active={activeItemLeft === '注册课程'}
@@ -112,23 +118,23 @@ class Account extends React.Component {
                       <Menu.Item
                         name='课程设置'
                         index={2}
-                        active={activeItemLeft === '课程设置'}
+                        active={activeItems[2] === '课程设置'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
                         name='课程列表'
                         index={2}
-                        active={activeItemLeft === '课程列表'}
+                        active={activeItems[2] === '课程列表'}
                         onClick={this.handleLeftItemClick}
                       />
                     </Menu>
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
                     <div>
-                      <div hidden={activeItemLeft !== '课程设置'}>
+                      <div hidden={activeItems[2] !== '课程设置'}>
                         <CourseScheduling />
                       </div>
-                      <div hidden={activeItemLeft !== '课程列表'}>
+                      <div hidden={activeItems[2] !== '课程列表'}>
                         This is an stretched grid column. This segment will always match the tab height
                       </div>
                     </div>

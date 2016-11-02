@@ -1,13 +1,12 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
-import { Grid, Button, Header, Form, Message, Confirm } from 'semantic-ui-react'
+import { Grid, Button, Header, Form } from 'semantic-ui-react'
 import states from '../../api/data/states'
 import genders from '../../api/data/genders'
-import { Roles } from 'meteor/alanning:roles'
+import NewUserConfirmation from './new-user-confirmation'
 
 class AddNewTeacher extends React.Component {
   state = {
-    formData: {},
     open: false,
     userExists: false,
     didSearch: false,
@@ -15,15 +14,8 @@ class AddNewTeacher extends React.Component {
     first: '',
     last: '',
     chinese: '',
-  };
-  
-  show = () => this.setState({ open: true })
-  
-  handleConfirm = () => {
-    this.setState({ open: false })
+    done: false,
   }
-  
-  handleCancel = () => this.setState({ open: false })
   
   handleSubmit = (e, formData) => {
     this.setState({ didSearch: false, userExists: false })
@@ -47,7 +39,6 @@ class AddNewTeacher extends React.Component {
   
   updateTeacherInfo = (e, formData) => {
     e.preventDefault()
-    this.setState({ formData })
     
     if (this.state.userExists) {
       // TODO Update this user.
@@ -72,12 +63,17 @@ class AddNewTeacher extends React.Component {
       
       const user = { email, password, profile }
       const roles = ['teacher']
-      Meteor.call('createNewUser', user, roles)
+      Meteor.call('createNewUser', user, roles, (error, results) => {
+        if (error) {
+          console.log(error.reason)
+        } else {
+          this.setState({ done: true })
+        }
+      })
     }
   }
   
   render() {
-    const { formData } = this.state
     return (
       <Grid textAlign='left' width={16}>
         <Grid.Row>
@@ -102,7 +98,7 @@ class AddNewTeacher extends React.Component {
           </Grid.Column>
         </Grid.Row>
         
-        {this.state.didSearch && <Grid.Row>
+        {this.state.didSearch && !this.state.done && <Grid.Row>
           <Grid.Column width={16}>
             <Form onSubmit={this.updateTeacherInfo}>
               
@@ -150,22 +146,16 @@ class AddNewTeacher extends React.Component {
                 <Button primary type='submit'>更新资料</Button> :
                 <Button primary type='submit'>添加老师</Button>
               }
-              
             </Form>
-
-            <Message>
-              <pre>Form Data: {JSON.stringify(formData, null, 2)}</pre>
-            </Message>
           </Grid.Column>
         </Grid.Row>}
         
-        <Confirm
-          open={this.state.open}
-          header='Please confirm the new teacher creation'
-          content={'Create a new teacher with email: ' + this.state.email}
-          onCancel={this.handleCancel}
-          onConfirm={this.handleConfirm}
-        />
+        {this.state.done && <Grid.Row>
+          <Grid.Column width={16}>
+            {this.state.done && <NewUserConfirmation message='Successfully created a new teacher!' />}
+          </Grid.Column>
+        </Grid.Row>}
+        
       </Grid>
     )
   }
