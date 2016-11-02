@@ -7,7 +7,6 @@ import NewUserConfirmation from './new-user-confirmation'
 
 class AddNewTeacher extends React.Component {
   state = {
-    open: false,
     userExists: false,
     didSearch: false,
     email: '',

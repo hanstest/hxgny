@@ -3,6 +3,7 @@ import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
 import AddNewTeacher from '../components/add-new-teacher'
+import AddStudent from '../components/add-student.js'
 
 const activeItems = ['个人资料', '添加教师', '课程设置']
 
@@ -74,7 +75,15 @@ class Account extends React.Component {
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
                     <div>
-                      User profile.
+                      <div hidden={activeItemLeft !== '个人资料'}>
+                        Personal details
+                      </div>
+                      <div hidden={activeItemLeft !== '添加学生'}>
+                        <AddStudent />
+                      </div>
+                      <div hidden={activeItemLeft !== '注册课程'}>
+                        Register course
+                      </div>
                     </div>
                   </Grid.Column>
                 </Grid>
@@ -118,23 +127,23 @@ class Account extends React.Component {
                       <Menu.Item
                         name='课程设置'
                         index={2}
-                        active={activeItems[2] === '课程设置'}
+                        active={activeItemLeft === '课程设置'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
                         name='课程列表'
                         index={2}
-                        active={activeItems[2] === '课程列表'}
+                        active={activeItemLeft === '课程列表'}
                         onClick={this.handleLeftItemClick}
                       />
                     </Menu>
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
                     <div>
-                      <div hidden={activeItems[2] !== '课程设置'}>
+                      <div hidden={activeItemLeft !== '课程设置'}>
                         <CourseScheduling />
                       </div>
-                      <div hidden={activeItems[2] !== '课程列表'}>
+                      <div hidden={activeItemLeft !== '课程列表'}>
                         This is an stretched grid column. This segment will always match the tab height
                       </div>
                     </div>

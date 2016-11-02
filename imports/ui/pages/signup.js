@@ -98,12 +98,8 @@ class Signup extends React.Component {
               <Divider section />
 
               <Header as='h4'>Mailing Address</Header>
-              <Form.Field>
-                <label>Street</label>
-                <Input name='street' />
-              </Form.Field>
-
               <Form.Group>
+                <Form.Input label='Street' name='street' />
                 <Form.Input label='City' name='city' />
                 <Form.Select label='State' name='state' options={states} />
                 <Form.Input label='Zip Code' name='zip' />
