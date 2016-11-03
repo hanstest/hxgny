@@ -2,8 +2,8 @@ import React from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
-import AddNewTeacher from '../components/add-new-teacher'
-import AddStudent from '../components/add-new-student.js'
+import AddNewTeacher from '../components/add-teacher'
+import AddStudent from '../components/add-student.js'
 
 const activeItems = ['个人资料', '添加教师', '课程设置']
 
