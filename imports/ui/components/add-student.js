@@ -3,41 +3,39 @@ import { insertStudent } from '../../api/students/methods.js'
 import { Grid, Button, Header, Form } from 'semantic-ui-react'
 import genders from '../../api/data/genders'
 import NewUserConfirmation from './new-user-confirmation'
-import {DatePicker, DatePickerInput} from 'rc-datepicker';
+import { DatePickerInput } from 'rc-datepicker'
 
-
-
-const handleInsertStudent = (formData) => {
-  const student = {
-    first: formData.first,
-    last: formData.last,
-    chinese: formData.chinese,
-    dob: new Date(),
-    gender: formData.gender,
-  }
-
-  insertStudent.call({
-    student,
-  }, (error) => {
-    if (error) {
-      console.log(error.reason)
-    } else {
-      console.log('Student added!')
-    }
-  })
-}
 
 class AddStudent extends React.Component {
   state = {
-    first: '',
-    last: '',
-    chinese: '',
+    dob: '',
     done: false,
-    date: '2/14/2008',
   }
   
   onChange = (jsDate, dateString) => {
     console.log(jsDate, dateString)
+    this.dob = jsDate
+  }
+  
+  handleInsertStudent = (formData) => {
+    const student = {
+      first: formData.first,
+      last: formData.last,
+      chinese: formData.chinese,
+      gender: formData.gender,
+      dob: this.dob,
+    }
+    
+    insertStudent.call({
+      student,
+    }, (error) => {
+      if (error) {
+        console.log(error.reason)
+      } else {
+        console.log('Student added!')
+        this.setState({ done: true })
+      }
+    })
   }
   
   render() {
@@ -48,10 +46,10 @@ class AddStudent extends React.Component {
             <Header as='h2' icon='student' content='添加学生' />
           </Grid.Column>
         </Grid.Row>
-      
+        
         {!this.state.done && <Grid.Row>
           <Grid.Column width={16}>
-            <Form onSubmit={handleInsertStudent}>
+            <Form onSubmit={this.handleInsertStudent}>
             
               <Form.Group widths='equal'>
                 <Form.Input
@@ -59,41 +57,41 @@ class AddStudent extends React.Component {
                   name='first'
                   placeholder='First Name'
                   type='text'
-                  defaultValue={this.state.first}
                 />
                 <Form.Input
                   label='Last Name'
                   name='last'
                   placeholder='Last Name'
                   type='text'
-                  defaultValue={this.state.last}
                 />
                 <Form.Input
                   label='Chinese Name'
                   name='chinese'
                   placeholder='中文姓名'
                   type='text'
-                  defaultValue={this.state.chinese}
                 />
                 <Form.Select label='Gender' name='gender' options={genders} placeholder='Select gender' />
   
-                <div>
-                  <p>jsDate = {String(this.state.value)}</p>
-                  <div className='ui input'>
-                    <DatePickerInput
-                      displayFormat='DD/MM/YYYY'
-                      returnFormat='YYYY-MM-DD'
-                      className='my-react-component'
-                      defaultValue={this.state.yesterday}
-                      valueLink={linkState(this, 'value')}
-                      showOnInputClick
-                      placeholder='placeholder'
-                      locale='de'
-                      iconClassName='calendar icon'
-                    />
-                  </div>
-                </div>
-                
+                <Form.Field>
+                  <Grid.Column>
+                    <Grid.Row>
+                      <h5 style={{ paddingBottom: '5px' }}>Date of Birth</h5>
+                    </Grid.Row>
+                    <Grid.Row>
+                      <div className='ui input'>
+                        <DatePickerInput
+                          displayFormat='MM/DD/YYYY'
+                          returnFormat='YYYY-MM-DD'
+                          className='my-react-component'
+                          showOnInputClick
+                          iconClassName='calendar icon'
+                          onChange={this.onChange}
+                          placeholder='Birthday'
+                        />
+                      </div>
+                    </Grid.Row>
+                  </Grid.Column>
+                </Form.Field>
               </Form.Group>
               
               <Button primary type='submit'>添加学生</Button>
