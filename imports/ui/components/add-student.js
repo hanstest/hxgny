@@ -18,29 +18,20 @@ class AddStudent extends React.Component {
   updateTeacherInfo = (e, formData) => {
     e.preventDefault()
     
-    const student = {
+    insertStudent.call({
       familyId: Meteor.userId(),
       first: formData.first,
       last: formData.last,
       chinese: formData.chinese,
       gender: formData.gender,
-      // dob: new Date(formData.dob),
-      dob: new Date(),
-    }
-    console.log(student)
-    
-    Students.call({
-      student,
+      dob: new Date(formData.dob),
     }, (error) => {
       if (error) {
         console.log(error.reason)
       } else {
-        console.log('Student added!')
         this.setState({ submitted: true })
       }
     })
-    
-    this.setState({ submitted: true })
   }
   
   render() {
@@ -48,7 +39,7 @@ class AddStudent extends React.Component {
       <Grid textAlign='left' width={16}>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={16} computer={16}>
-            <Header as='h2' icon='add user' content='添加学生' />
+            <Header as='h2' icon='student' content='添加学生' />
           </Grid.Column>
         </Grid.Row>
         
@@ -90,6 +81,7 @@ class AddStudent extends React.Component {
                         <DatePickerInput
                           displayFormat='YYYY-MM-DD'
                           className='my-react-component'
+                          startMode='year'
                           showOnInputClick
                           iconClassName='calendar icon'
                           onChange={this.onChange}

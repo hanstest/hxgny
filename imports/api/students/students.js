@@ -32,13 +32,13 @@ Students.schema = new SimpleSchema({
     type: String,
     label: 'The Chinese name of the student.',
   },
-  dob: {
-    type: Date,
-    label: 'The date of birth of the student.',
-  },
   gender: {
     type: String,
     label: 'The gender of the student.',
+  },
+  dob: {
+    type: Date,
+    label: 'The date of birth of the student.',
   },
 })
 
