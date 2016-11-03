@@ -151,7 +151,7 @@ class AddNewTeacher extends React.Component {
         
         {this.state.done && <Grid.Row>
           <Grid.Column width={16}>
-            {this.state.done && <NewUserConfirmation message='Successfully created a new teacher!' />}
+            <NewUserConfirmation message='Successfully created a new teacher!' />
           </Grid.Column>
         </Grid.Row>}
         

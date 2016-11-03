@@ -3,12 +3,13 @@ import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
 import AddNewTeacher from '../components/add-new-teacher'
-import AddStudent from '../components/add-student.js'
+import AddStudent from '../components/add-new-student.js'
 
 const activeItems = ['个人资料', '添加教师', '课程设置']
 
 class Account extends React.Component {
-  state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
+  // state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
+  state = { activeItemTop: '个人中心', activeItemLeft: '添加学生' }
 
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
@@ -110,7 +111,7 @@ class Account extends React.Component {
                   <Grid.Column stretched width={14}>
                     <div>
                       <div hidden={activeItemLeft !== '添加教师'}>
-                        <AddNewTeacher />
+                        <AddNewTeacher submitted={false} />
                       </div>
                       <div hidden={activeItemLeft !== '教师列表'}>
                         <TeacherList />

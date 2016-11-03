@@ -17,24 +17,20 @@ Students.deny({
 
 Students.schema = new SimpleSchema({
   familyId: {
-    type: SimpleSchema.RegEx.Id,
+    type: String,
     label: 'The family id of the student.',
-    max: 100,
   },
   first: {
     type: String,
     label: 'The first name of the student.',
-    max: 50,
   },
   last: {
     type: String,
     label: 'The last name of the student.',
-    max: 50,
   },
   chinese: {
     type: String,
     label: 'The Chinese name of the student.',
-    max: 50,
   },
   dob: {
     type: Date,
@@ -43,7 +39,6 @@ Students.schema = new SimpleSchema({
   gender: {
     type: String,
     label: 'The gender of the student.',
-    allowedValues: ['M', 'F'],
   },
 })
 

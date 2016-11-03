@@ -5,7 +5,9 @@ import { rateLimit } from '../../modules/rate-limit.js'
 
 export const insertStudent = new ValidatedMethod({
   name: 'students.insert',
-  validate: Students.schema.validator(),
+  validate: new SimpleSchema({
+    first: { type: String },
+  }).validator(),
   run(student) {
     Students.insert(student)
   },
