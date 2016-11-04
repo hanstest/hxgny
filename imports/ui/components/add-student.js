@@ -12,10 +12,9 @@ class AddStudent extends React.Component {
     this.state = { submitted: props.submitted }
   }
   
-  onChange = (jsDate, dateString) => {
-  }
+  handleDateChange = (jsDate, dateString) => {}
   
-  updateTeacherInfo = (e, formData) => {
+  addStudent = (e, formData) => {
     e.preventDefault()
     
     insertStudent.call({
@@ -39,13 +38,13 @@ class AddStudent extends React.Component {
       <Grid textAlign='left' width={16}>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={16} computer={16}>
-            <Header as='h2' icon='student' content='添加学生' />
+            <Header as='h2' icon='student' content='学生管理' />
           </Grid.Column>
         </Grid.Row>
         
         {!this.state.submitted && <Grid.Row>
           <Grid.Column width={16}>
-            <Form onSubmit={this.updateTeacherInfo}>
+            <Form onSubmit={this.addStudent}>
               
               <Form.Group widths='equal'>
                 <Form.Input
@@ -84,7 +83,7 @@ class AddStudent extends React.Component {
                           startMode='year'
                           showOnInputClick
                           iconClassName='calendar icon'
-                          onChange={this.onChange}
+                          onChange={this.handleDateChange}
                           placeholder='YYYY-MM-DD'
                           name='dob'
                         />
