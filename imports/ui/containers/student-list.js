@@ -7,6 +7,7 @@ const composer = (params, onData) => {
   const subscription = Meteor.subscribe('students')
   if (subscription.ready()) {
     const students = Students.find().fetch()
+    console.log('I am here...')
     onData(null, { students })
   }
 }

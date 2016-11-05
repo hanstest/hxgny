@@ -4,7 +4,7 @@ import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
 import AddNewTeacher from '../components/add-teacher'
 import AddStudent from '../components/add-student.js'
-import StudentList from '../components/student-list.js'
+import StudentList from '../containers/student-list.js'
 
 const activeItems = ['个人资料', '添加教师', '课程设置']
 
