@@ -1,6 +1,6 @@
 const genders = [
-  { text: 'Male', value: 'male' },
-  { text: 'Female', value: 'female' },
+  { text: 'Male', value: 'M' },
+  { text: 'Female', value: 'F' },
 ]
 
 export default genders
