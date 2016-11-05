@@ -18,20 +18,30 @@ const handleUpdateStudent = (studentId, update) => {
 }
 
 const handleRemoveStudent = (studentId) => {
-  console.log('I am here. Removing student: ' + studentId)
+  if (confirm('Are you sure? This is permanent.')) {
+    removeStudent.call({
+      _id: studentId,
+    }, (error) => {
+      if (error) {
+        console.log(error.reason)
+      } else {
+        console.log('Student removed!')
+      }
+    })
+  }
 }
 
 const formatDate = (date) => {
-  return date.toISOString().slice(0, 10)
+  const mm = date.getMonth() + 1 // getMonth() is zero-based
+  const dd = date.getDate()
+  return [date.getFullYear(), !mm[1] && '0', mm, !dd[1] && '0', dd].join('-') // padding
 }
 
 class StudentList extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = { editing: null }
-  // }
-  
-  state = { editing: null }
+  constructor(props) {
+    super(props)
+    this.state = { editing: null }
+  }
   
   toggleEditing = (studentId) => {
     this.setState({ editing: studentId })
@@ -45,8 +55,8 @@ class StudentList extends React.Component {
     const studentId = student._id
     if (this.state.editing === studentId) {
       return (
-        <Table.Row textAlign='center' key={studentId}>
-          <Table.Cell icon='save' />
+        <Table.Row textAlign='center'>
+          <Table.Cell icon='save' onClick={handleUpdateStudent(studentId)} />
           <Table.Cell icon='trash' />
           <Table.Cell><Input name='first' type='text' defaultValue={student.first} /></Table.Cell>
           <Table.Cell><Input name='last' type='text' defaultValue={student.last} /></Table.Cell>
@@ -59,9 +69,9 @@ class StudentList extends React.Component {
     }
     
     return (
-      <Table.Row textAlign='center' key={studentId}>
-        <Table.Cell icon='write' />
-        <Table.Cell icon='trash' />
+      <Table.Row textAlign='center'>
+        <Table.Cell icon='write' onClick={this.toggleEditing(studentId)} />
+        <Table.Cell icon='trash' onClick={handleRemoveStudent(studentId)} />
         <Table.Cell>{student.first}</Table.Cell>
         <Table.Cell>{student.last}</Table.Cell>
         <Table.Cell>{student.chinese}</Table.Cell>

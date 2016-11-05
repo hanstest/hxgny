@@ -38,7 +38,7 @@ class AddStudent extends React.Component {
       <Grid textAlign='left' width={16}>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={16} computer={16}>
-            <Header as='h2' icon='student' content='学生管理' />
+            <Header as='h2' icon='student' content='添加学生' />
           </Grid.Column>
         </Grid.Row>
         
