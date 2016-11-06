@@ -3,15 +3,16 @@ import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
 import AddNewTeacher from '../components/add-teacher'
-import StudentCreation from '../components/StudentCreation.js'
 import StudentList from '../containers/student-list.js'
+import StudentCreation from '../components/StudentCreation.js'
+import CourseCreation from '../components/CourseCreation.js'
 
-const activeItems = ['个人资料', '添加教师', '课程设置']
+const activeItems = ['个人资料', '添加教师', '添加课程']
 
 class Account extends React.Component {
   // state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
-  state = { activeItemTop: '个人中心', activeItemLeft: '学生管理' }
-
+  state = { activeItemTop: '课程管理', activeItemLeft: '添加课程' }
+  
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
   }
@@ -136,6 +137,12 @@ class Account extends React.Component {
                   <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
                       <Menu.Item
+                        name='添加课程'
+                        index={2}
+                        active={activeItemLeft === '添加课程'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
                         name='课程设置'
                         index={2}
                         active={activeItemLeft === '课程设置'}
@@ -151,6 +158,9 @@ class Account extends React.Component {
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
                     <div>
+                      <div hidden={activeItemLeft !== '添加课程'}>
+                        <CourseCreation />
+                      </div>
                       <div hidden={activeItemLeft !== '课程设置'}>
                         <CourseScheduling />
                       </div>
