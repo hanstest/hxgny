@@ -1,16 +1,12 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
-import { Grid, Button, Header, Form } from 'semantic-ui-react'
-import NewUserConfirmation from './new-user-confirmation'
-import genders from '../../api/data/genders'
+import { Grid, Button, Header, Form, Modal } from 'semantic-ui-react'
 import { DatePickerInput } from 'rc-datepicker'
 import { insertStudent } from '../../api/students/methods.js'
+import genders from '../../api/data/genders'
 
-class AddStudent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { submitted: props.submitted }
-  }
+class StudentCreation extends React.Component {
+  state = { key: (new Date()).getTime(), open: false }
   
   handleDateChange = (jsDate, dateString) => {}
   
@@ -28,12 +24,16 @@ class AddStudent extends React.Component {
       if (error) {
         console.log(error.reason)
       } else {
-        this.setState({ submitted: true })
+        this.setState({ open: true })
+        // Close the modal in three seconds
+        setInterval(() => { this.setState({ key: (new Date()).getTime(), open: false }) }, 3000)
       }
     })
   }
   
   render() {
+    const { open } = this.state
+    
     return (
       <Grid textAlign='left' width={16}>
         <Grid.Row>
@@ -42,9 +42,9 @@ class AddStudent extends React.Component {
           </Grid.Column>
         </Grid.Row>
         
-        {!this.state.submitted && <Grid.Row>
+        <Grid.Row>
           <Grid.Column width={16}>
-            <Form onSubmit={this.addStudent}>
+            <Form onSubmit={this.addStudent} key={this.state.key}>
               
               <Form.Group widths='equal'>
                 <Form.Input
@@ -97,21 +97,22 @@ class AddStudent extends React.Component {
               <Button primary type='submit'>添加学生</Button>
             </Form>
           </Grid.Column>
-        </Grid.Row>}
-        
-        {this.state.submitted && <Grid.Row>
-          <Grid.Column width={16}>
-            <NewUserConfirmation message='Successfully created a new student!' />
-          </Grid.Column>
-        </Grid.Row>}
+        </Grid.Row>
+  
+        <Grid.Row>
+          <Modal size='small' dimmer='blurring' open={open}>
+            <Modal.Header>
+              Confirmation
+            </Modal.Header>
+            <Modal.Content>
+              <p>Successfully created a new student!</p>
+            </Modal.Content>
+          </Modal>
+        </Grid.Row>
       
       </Grid>
     )
   }
 }
 
-AddStudent.propTypes = {
-  submitted: React.PropTypes.bool,
-}
-
-export default AddStudent
+export default StudentCreation

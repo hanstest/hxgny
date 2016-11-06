@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { composeWithTracker } from 'react-komposer'
 import { Students } from '../../api/students/students'
-import StudentList from '../components/student-list'
+import StudentList from '../components/StudentList'
 import Loading from '../components/loading'
 
 const composer = (params, onData) => {

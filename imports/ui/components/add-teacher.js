@@ -1,9 +1,8 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
-import { Grid, Button, Header, Form } from 'semantic-ui-react'
+import { Grid, Button, Header, Form, Modal } from 'semantic-ui-react'
 import states from '../../api/data/states'
 import genders from '../../api/data/genders'
-import NewUserConfirmation from './new-user-confirmation'
 
 class AddNewTeacher extends React.Component {
   state = {
@@ -13,7 +12,8 @@ class AddNewTeacher extends React.Component {
     first: '',
     last: '',
     chinese: '',
-    done: false,
+    key: (new Date()).getTime(),
+    open: false,
   }
   
   handleSubmit = (e, formData) => {
@@ -32,7 +32,10 @@ class AddNewTeacher extends React.Component {
       this.setState(userInfo)
       this.setState({ userExists: true })
     } else {
-      this.setState({ userExists: false, first: '', last: '', chinese: '' })
+      this.setState({
+        userExists: false,
+        didSearch: true,
+      })
     }
   }
   
@@ -65,14 +68,25 @@ class AddNewTeacher extends React.Component {
       Meteor.call('createNewUser', user, roles, (error, results) => {
         if (error) {
           console.log(error.reason)
-        } else {
-          this.setState({ done: true })
         }
       })
     }
+  
+    this.setState({ open: true })
+    // Close the modal in three seconds
+    setInterval(() => {
+      this.setState({
+        key: (new Date()).getTime(),
+        open: false,
+        userExists: false,
+        didSearch: false,
+      })
+    }, 3000)
   }
   
   render() {
+    const { open } = this.state
+    
     return (
       <Grid textAlign='left' width={16}>
         <Grid.Row>
@@ -83,7 +97,7 @@ class AddNewTeacher extends React.Component {
         
         <Grid.Row>
           <Grid.Column width={8}>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} key={this.state.key}>
               <Form.Input
                 label='Email'
                 name='email'
@@ -97,7 +111,7 @@ class AddNewTeacher extends React.Component {
           </Grid.Column>
         </Grid.Row>
         
-        {this.state.didSearch && !this.state.done && <Grid.Row>
+        {this.state.didSearch && <Grid.Row>
           <Grid.Column width={16}>
             <Form onSubmit={this.updateTeacherInfo}>
               
@@ -148,12 +162,17 @@ class AddNewTeacher extends React.Component {
             </Form>
           </Grid.Column>
         </Grid.Row>}
-        
-        {this.state.done && <Grid.Row>
-          <Grid.Column width={16}>
-            <NewUserConfirmation message='Successfully created a new teacher!' />
-          </Grid.Column>
-        </Grid.Row>}
+  
+        <Grid.Row>
+          <Modal size='small' dimmer='blurring' open={open}>
+            <Modal.Header>
+              Confirmation
+            </Modal.Header>
+            <Modal.Content>
+              <p>Successfully created/updated information on a teacher!</p>
+            </Modal.Content>
+          </Modal>
+        </Grid.Row>
         
       </Grid>
     )

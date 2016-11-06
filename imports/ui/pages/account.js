@@ -3,7 +3,7 @@ import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
 import AddNewTeacher from '../components/add-teacher'
-import AddStudent from '../components/add-student.js'
+import StudentCreation from '../components/StudentCreation.js'
 import StudentList from '../containers/student-list.js'
 
 const activeItems = ['个人资料', '添加教师', '课程设置']
@@ -87,7 +87,7 @@ class Account extends React.Component {
                         Personal details
                       </div>
                       <div hidden={activeItemLeft !== '添加学生'}>
-                        <AddStudent />
+                        <StudentCreation />
                       </div>
                       <div hidden={activeItemLeft !== '学生管理'}>
                         <StudentList />
