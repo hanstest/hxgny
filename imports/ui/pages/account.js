@@ -1,11 +1,15 @@
 import React from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
+
 import TeacherList from './teacher-list'
-import AddNewTeacher from '../components/add-teacher'
+import TeacherCreation from '../components/TeacherCreation'
+
 import StudentList from '../containers/student-list.js'
 import StudentCreation from '../components/StudentCreation.js'
+
 import CourseCreation from '../components/CourseCreation.js'
+
 
 const activeItems = ['个人资料', '添加教师', '添加课程']
 
@@ -122,7 +126,7 @@ class Account extends React.Component {
                   <Grid.Column stretched width={14}>
                     <div>
                       <div hidden={activeItemLeft !== '添加教师'}>
-                        <AddNewTeacher submitted={false} />
+                        <TeacherCreation submitted={false} />
                       </div>
                       <div hidden={activeItemLeft !== '教师列表'}>
                         <TeacherList />
