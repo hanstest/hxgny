@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
-import { Grid, Button, Header, Form, Modal, Table, Message } from 'semantic-ui-react'
-// import { insertCourse } from '../../api/courses/methods.js'
+import { Grid, Button, Header, Form, Modal, Table } from 'semantic-ui-react'
+import { insertCourse } from '../../api/courses/methods.js'
 import semesters from '../../api/data/semesters'
 import courses from '../../api/data/courses'
 import categories from '../../api/data/categories'
@@ -12,7 +12,7 @@ import regstatuses from '../../api/data/regstatuses'
 
 class CourseCreation extends React.Component {
   state = {
-    didSearch: false,
+    searched: false,
     teacher: null,
     open: false,
     key: (new Date()).getTime(),
@@ -25,15 +25,15 @@ class CourseCreation extends React.Component {
     }
     
     const user = Meteor.users.findOne({ 'emails.address': formData.email })
-    this.setState({ didSearch: true, email: formData.email })
+    this.setState({ searched: true, email: formData.email })
     if (user) {
       let teacher = Object.assign({}, user.profile.name)
-      teacher = Object.assign(teacher, { gender: user.profile.gender, teacherId: user._id })
+      teacher = Object.assign(teacher, { gender: user.profile.gender, id: user._id })
       this.setState({ teacher })
     } else {
       this.setState({
         teacher: null,
-        didSearch: true,
+        searched: true,
       })
     }
   }
@@ -41,24 +41,36 @@ class CourseCreation extends React.Component {
   addCourse = (e, formData) => {
     e.preventDefault()
     
-    // TODO
-    console.log('Add a new course')
-    
-    this.setState({ formData })
-    this.setState({ open: true })
+    insertCourse.call({
+      teacherId: this.state.teacher.id,
+      semester: formData.semester,
+      course: formData.course,
+      category: formData.category,
+      classroom: formData.classroom,
+      session: formData.session,
+      maxNumStudents: parseInt(formData.maxNumStudents, 10),
+      minAge: parseInt(formData.minAge, 10),
+      regstatus: formData.regstatus,
+    }, (error) => {
+      if (error) {
+        console.log(error.reason)
+      } else {
+        this.setState({ open: true })
   
-    // Close the modal in three seconds
-    setInterval(() => {
-      this.setState({
-        didSearch: false,
-        open: false,
-        key: (new Date()).getTime(),
-      })
-    }, 3000)
+        // Close the modal in three seconds
+        setInterval(() => {
+          this.setState({
+            searched: false,
+            open: false,
+            key: (new Date()).getTime(),
+          })
+        }, 3000)
+      }
+    })
   }
   
   render() {
-    const { didSearch, teacher, formData, open } = this.state
+    const { searched, teacher, open } = this.state
     
     return (
       <Grid textAlign='left' width={16} key={this.state.key}>
@@ -82,10 +94,10 @@ class CourseCreation extends React.Component {
                     placeholder='david@example.com'
                   />
                   <Button type='submit'>查找老师</Button>
-                  {didSearch && teacher === null && <Button disabled color='red'>老师不存在</Button>}
+                  {searched && teacher === null && <Button disabled color='red'>老师不存在</Button>}
                 </Form.Group>
 
-                {didSearch && teacher !== null && <Table size='small' celled selectable singleLine>
+                {searched && teacher !== null && <Table size='small' celled selectable singleLine>
                   <Table.Header>
                     <Table.Row textAlign='center'>
                       <Table.HeaderCell>First Name</Table.HeaderCell>
@@ -154,6 +166,7 @@ class CourseCreation extends React.Component {
                     type='number'
                     min='10'
                     max='40'
+                    defaultValue={25}
                   />
                   <Form.Input
                     label='最低年龄'
@@ -181,35 +194,34 @@ class CourseCreation extends React.Component {
                     name='semesterFee'
                     placeholder='Semester tuition'
                     type='number'
-                  />
-                  <Form.Input
-                    label='学年费用'
-                    name='fullYearFee'
-                    placeholder='Full-year tuition'
-                    type='number'
+                    defaultValue={0.0}
                   />
                   <Form.Input
                     label='教材费用'
                     name='bookFee'
                     placeholder='Book fee'
                     type='number'
+                    defaultValue={0.0}
                   />
                   <Form.Input
-                    label='特殊费用'
+                    label='注册费用'
                     name='specialFee'
                     placeholder='Special feed'
                     type='number'
+                    defaultValue={0.0}
+                  />
+                  <Form.Input
+                    label='其它费用'
+                    name='specialFee'
+                    placeholder='Special feed'
+                    type='number'
+                    defaultValue={0.0}
                   />
                 </Form.Group>
               </fieldset>
         
               <br />
               <Button primary type='submit'>添加课程</Button>
-        
-              <Message>
-                <pre>formData: {JSON.stringify(formData, null, 2)}</pre>
-              </Message>
-      
             </Form>
           </Grid.Column>
         </Grid.Row>
