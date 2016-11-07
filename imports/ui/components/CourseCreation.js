@@ -11,45 +11,57 @@ import regstatuses from '../../api/data/regstatuses'
 
 
 class CourseCreation extends React.Component {
-  state = { open: false, email: null, teacher: null, formData: {} }
+  state = {
+    didSearch: false,
+    teacher: null,
+    open: false,
+    key: (new Date()).getTime(),
+  }
+  
+  handleSubmit = (e, formData) => {
+    e.preventDefault()
+    if (this.state.teacher !== null) {
+      return
+    }
+    
+    const user = Meteor.users.findOne({ 'emails.address': formData.email })
+    this.setState({ didSearch: true, email: formData.email })
+    if (user) {
+      let teacher = Object.assign({}, user.profile.name)
+      teacher = Object.assign(teacher, { gender: user.profile.gender, teacherId: user._id })
+      this.setState({ teacher })
+    } else {
+      this.setState({
+        teacher: null,
+        didSearch: true,
+      })
+    }
+  }
   
   addCourse = (e, formData) => {
     e.preventDefault()
     
     // TODO
     console.log('Add a new course')
-  
+    
     this.setState({ formData })
     this.setState({ open: true })
+  
     // Close the modal in three seconds
-    setInterval(() => { this.setState({ open: false }) }, 3000)
-  }
-  
-  handleSearchTeacher = () => {
-    if (this.state.teacher !== null) {
-      return
-    }
-    
-    const user = Meteor.users.findOne({ 'emails.address': this.state.email })
-    this.setState({ didSearch: true })
-    if (user) {
-      let teacher = Object.assign({}, user.profile.name)
-      teacher = Object.assign(teacher, { gender: user.profile.gender })
-      this.setState(teacher)
-    } else {
-      this.setState({ didSearch: true })
-    }
-  }
-  
-  setEmail = (value) => {
-    this.setState({ email: value })
+    setInterval(() => {
+      this.setState({
+        didSearch: false,
+        open: false,
+        key: (new Date()).getTime(),
+      })
+    }, 3000)
   }
   
   render() {
-    const { open, didSearch, teacher, formData } = this.state
+    const { didSearch, teacher, formData, open } = this.state
     
     return (
-      <Grid textAlign='left' width={16}>
+      <Grid textAlign='left' width={16} key={this.state.key}>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={16} computer={16}>
             <Header as='h2' icon='book' content='添加课程' />
@@ -57,12 +69,51 @@ class CourseCreation extends React.Component {
         </Grid.Row>
         
         <Grid.Row>
+          <Grid.Column width={8}>
+            <Form onSubmit={this.handleSubmit}>
+              <fieldset>
+                <legend><Header as='h3' color='blue' content='老师信息' /></legend>
+                <Form.Group inline>
+                  <Form.Input
+                    label='Email'
+                    name='email'
+                    icon='mail'
+                    iconPosition='left'
+                    placeholder='david@example.com'
+                  />
+                  <Button type='submit'>查找老师</Button>
+                  {didSearch && teacher === null && <Button disabled color='red'>老师不存在</Button>}
+                </Form.Group>
+
+                {didSearch && teacher !== null && <Table size='small' celled selectable singleLine>
+                  <Table.Header>
+                    <Table.Row textAlign='center'>
+                      <Table.HeaderCell>First Name</Table.HeaderCell>
+                      <Table.HeaderCell>Last Name</Table.HeaderCell>
+                      <Table.HeaderCell>Chinese Name</Table.HeaderCell>
+                      <Table.HeaderCell>Gender</Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
+  
+                  <Table.Body>
+                    <Table.Row textAlign='center'>
+                      <Table.Cell>{teacher.first}</Table.Cell>
+                      <Table.Cell>{teacher.last}</Table.Cell>
+                      <Table.Cell>{teacher.chinese}</Table.Cell>
+                      <Table.Cell>{teacher.gender}</Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table>}
+              </fieldset>
+            </Form>
+          </Grid.Column>
+        </Grid.Row>
+  
+        <Grid.Row>
           <Grid.Column width={16}>
             <Form onSubmit={this.addCourse}>
-  
               <fieldset>
-                <legend><Header as='h3' color='blue' content='课程信息' /></legend>
-              
+                <legend><Header as='h3' color='blue' content='基本信息' /></legend>
                 <Form.Group widths='equal'>
                   <Form.Select
                     label='课程学期'
@@ -120,90 +171,49 @@ class CourseCreation extends React.Component {
                   />
                 </Form.Group>
               </fieldset>
-              
+        
               <br />
               <fieldset>
-                <legend><Header as='h3' color='blue' content='任课老师' /></legend>
-                <Form.Group inline>
+                <legend><Header as='h3' color='blue' content='学费信息' /></legend>
+                <Form.Group widths='equal'>
                   <Form.Input
-                    name='email'
-                    label='Email'
-                    icon='mail'
-                    iconPosition='left'
-                    value={this.state.email}
-                    placeholder='teacher@example.com'
-                    onChange={this.setEmail}
+                    label='学期费用'
+                    name='semesterFee'
+                    placeholder='Semester tuition'
+                    type='number'
                   />
-                  <Button type='submit' onClick={this.handleSearchTeacher}>查找老师</Button>
-                  {didSearch && teacher === null && <Button disabled color='red'>老师不存在</Button>}
+                  <Form.Input
+                    label='学年费用'
+                    name='fullYearFee'
+                    placeholder='Full-year tuition'
+                    type='number'
+                  />
+                  <Form.Input
+                    label='教材费用'
+                    name='bookFee'
+                    placeholder='Book fee'
+                    type='number'
+                  />
+                  <Form.Input
+                    label='特殊费用'
+                    name='specialFee'
+                    placeholder='Special feed'
+                    type='number'
+                  />
                 </Form.Group>
-                
-  
-                {teacher !== null && <Table size='small' celled selectable singleLine>
-                  <Table.Header>
-                    <Table.Row textAlign='center'>
-                      <Table.HeaderCell>First Name</Table.HeaderCell>
-                      <Table.HeaderCell>Last Name</Table.HeaderCell>
-                      <Table.HeaderCell>Chinese Name</Table.HeaderCell>
-                      <Table.HeaderCell>Gender</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-    
-                  <Table.Body>
-                    <Table.Row textAlign='center'>
-                      <Table.Cell>{teacher.first}</Table.Cell>
-                      <Table.Cell>{teacher.last}</Table.Cell>
-                      <Table.Cell>{teacher.chinese}</Table.Cell>
-                      <Table.Cell>{teacher.gender}</Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                </Table>}
-                
               </fieldset>
-              
-              <br />
-              <fieldset>
-                <legend><Header as='h3' color='blue' content='课程费用' /></legend>
-                  <Form.Group widths='equal'>
-                    <Form.Input
-                      label='学期费用'
-                      name='semesterFee'
-                      placeholder='Semester tuition'
-                      type='number'
-                    />
-                    <Form.Input
-                      label='学年费用'
-                      name='fullYearFee'
-                      placeholder='Full-year tuition'
-                      type='number'
-                    />
-                    <Form.Input
-                      label='教材费用'
-                      name='bookFee'
-                      placeholder='Book fee'
-                      type='number'
-                    />
-                    <Form.Input
-                      label='特殊费用'
-                      name='specialFee'
-                      placeholder='Special feed'
-                      type='number'
-                    />
-                  </Form.Group>
-              </fieldset>
-  
+        
               <br />
               <Button primary type='submit'>添加课程</Button>
-  
+        
               <Message>
                 <pre>formData: {JSON.stringify(formData, null, 2)}</pre>
-                <pre>teacher: {JSON.stringify(teacher, null, 2)}</pre>
               </Message>
-              
+      
             </Form>
           </Grid.Column>
         </Grid.Row>
-        
+  
         <Grid.Row>
           <Modal size='small' dimmer='blurring' open={open}>
             <Modal.Header>
