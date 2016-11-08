@@ -8,17 +8,19 @@ import categories from '../../api/data/categories'
 import classrooms from '../../api/data/classrooms'
 import sessions from '../../api/data/sessions'
 import regstatuses from '../../api/data/regstatuses'
+import terms from '../../api/data/terms'
 
 
 class CourseCreation extends React.Component {
   state = {
     searched: false,
     teacher: null,
-    open: false,
+    openNoTeacherWarning: false,
+    openNewCourseConfirmation: false,
     key: (new Date()).getTime(),
   }
   
-  handleSubmit = (e, formData) => {
+  handleSearchTeacher = (e, formData) => {
     e.preventDefault()
     if (this.state.teacher !== null) {
       return
@@ -34,7 +36,14 @@ class CourseCreation extends React.Component {
       this.setState({
         teacher: null,
         searched: true,
+        openNoTeacherWarning: true,
       })
+      setInterval(() => {
+        this.setState({
+          searched: false,
+          openNoTeacherWarning: false,
+        })
+      }, 5000)
     }
   }
   
@@ -55,13 +64,13 @@ class CourseCreation extends React.Component {
       if (error) {
         console.log(error.reason)
       } else {
-        this.setState({ open: true })
+        this.setState({ openNewCourseConfirmation: true })
   
         // Close the modal in three seconds
         setInterval(() => {
           this.setState({
             searched: false,
-            open: false,
+            openNewCourseConfirmation: false,
             key: (new Date()).getTime(),
           })
         }, 3000)
@@ -70,7 +79,7 @@ class CourseCreation extends React.Component {
   }
   
   render() {
-    const { searched, teacher, open } = this.state
+    const { searched, teacher, openNoTeacherWarning, openNewCourseConfirmation } = this.state
     
     return (
       <Grid textAlign='left' width={16} key={this.state.key}>
@@ -82,7 +91,7 @@ class CourseCreation extends React.Component {
         
         <Grid.Row>
           <Grid.Column width={8}>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSearchTeacher}>
               <fieldset>
                 <legend><Header as='h3' color='blue' content='老师信息' /></legend>
                 <Form.Group inline>
@@ -94,7 +103,6 @@ class CourseCreation extends React.Component {
                     placeholder='david@example.com'
                   />
                   <Button type='submit'>查找老师</Button>
-                  {searched && teacher === null && <Button disabled color='red'>老师不存在</Button>}
                 </Form.Group>
 
                 {searched && teacher !== null && <Table size='small' celled selectable singleLine>
@@ -189,22 +197,28 @@ class CourseCreation extends React.Component {
               <fieldset>
                 <legend><Header as='h3' color='blue' content='学费信息' /></legend>
                 <Form.Group widths='equal'>
+                  <Form.Select
+                    label='学制'
+                    name='term'
+                    options={terms}
+                    placeholder='Select term'
+                  />
                   <Form.Input
-                    label='学期费用'
+                    label='学费'
                     name='semesterFee'
                     placeholder='Semester tuition'
                     type='number'
                     defaultValue={0.0}
                   />
                   <Form.Input
-                    label='教材费用'
+                    label='教材费'
                     name='bookFee'
                     placeholder='Book fee'
                     type='number'
                     defaultValue={0.0}
                   />
                   <Form.Input
-                    label='注册费用'
+                    label='注册费'
                     name='specialFee'
                     placeholder='Special feed'
                     type='number'
@@ -225,9 +239,20 @@ class CourseCreation extends React.Component {
             </Form>
           </Grid.Column>
         </Grid.Row>
-  
+        
         <Grid.Row>
-          <Modal size='small' dimmer='blurring' open={open}>
+          <Modal size='small' dimmer='blurring' open={openNoTeacherWarning}>
+            <Modal.Header>
+              Confirmation
+            </Modal.Header>
+            <Modal.Content>
+              <p>No teacher is found. Please add this teacher from 教师管理！</p>
+            </Modal.Content>
+          </Modal>
+        </Grid.Row>
+        
+        <Grid.Row>
+          <Modal size='small' dimmer='blurring' open={openNewCourseConfirmation}>
             <Modal.Header>
               Confirmation
             </Modal.Header>
