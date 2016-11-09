@@ -5,17 +5,21 @@ import CourseScheduling from './course-scheduling'
 import TeacherList from './teacher-list'
 import TeacherCreation from '../components/TeacherCreation'
 
-import StudentList from '../containers/student-list.js'
-import StudentCreation from '../components/StudentCreation.js'
+import StudentList from '../containers/student-list'
+import StudentCreation from '../components/StudentCreation'
 
-import CourseCreation from '../components/CourseCreation.js'
+import CourseCreation from '../components/CourseCreation'
+import CourseRegistration from '../components/CourseRegistration'
 
+import StateList from '../containers/state-list'
 
-const activeItems = ['个人资料', '添加教师', '添加课程']
+const activeItems = ['个人资料', '添加教师', '添加课程', '课程学期']
 
 class Account extends React.Component {
   // state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
-  state = { activeItemTop: '课程管理', activeItemLeft: '添加课程' }
+  // state = { activeItemTop: '个人中心', activeItemLeft: '注册课程' }
+  // state = { activeItemTop: '课程管理', activeItemLeft: '添加课程' }
+  state = { activeItemTop: '数据管理', activeItemLeft: '课程学期' }
   
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
@@ -51,6 +55,12 @@ class Account extends React.Component {
                 name='课程管理'
                 index={2}
                 active={activeItemTop === '课程管理'}
+                onClick={this.handleTopItemClick}
+              />
+              <Menu.Item
+                name='数据管理'
+                index={3}
+                active={activeItemTop === '数据管理'}
                 onClick={this.handleTopItemClick}
               />
             </Menu>
@@ -98,7 +108,7 @@ class Account extends React.Component {
                         <StudentList />
                       </div>
                       <div hidden={activeItemLeft !== '注册课程'}>
-                        Register course
+                        <CourseRegistration />
                       </div>
                     </div>
                   </Grid.Column>
@@ -170,6 +180,55 @@ class Account extends React.Component {
                       </div>
                       <div hidden={activeItemLeft !== '课程列表'}>
                         This is an stretched grid column. This segment will always match the tab height
+                      </div>
+                    </div>
+                  </Grid.Column>
+                </Grid>
+              </div>
+
+              <div hidden={activeItemTop !== '数据管理'}>
+                <Grid>
+                  <Grid.Column width={2}>
+                    <Menu fluid pointing secondary vertical>
+                      <Menu.Item
+                        name='课程学期'
+                        index={3}
+                        active={activeItemLeft === '课程学期'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
+                        name='教室地点'
+                        index={3}
+                        active={activeItemLeft === '教室地点'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
+                        name='美国州名'
+                        index={3}
+                        active={activeItemLeft === '美国州名'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
+                        name='上课时间'
+                        index={3}
+                        active={activeItemLeft === '上课时间'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                    </Menu>
+                  </Grid.Column>
+                  <Grid.Column stretched width={14}>
+                    <div>
+                      <div hidden={activeItemLeft !== '课程学期'}>
+                        <StateList />
+                      </div>
+                      <div hidden={activeItemLeft !== '教室地点'}>
+                        Placeholder
+                      </div>
+                      <div hidden={activeItemLeft !== '美国州名'}>
+                        Placeholder
+                      </div>
+                      <div hidden={activeItemLeft !== '上课时间'}>
+                        Placeholder
                       </div>
                     </div>
                   </Grid.Column>

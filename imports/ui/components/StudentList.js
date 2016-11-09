@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Table, Header, Message, Modal, Button, Icon } from 'semantic-ui-react'
+import { Grid, Table, Header, Message, Modal, Button } from 'semantic-ui-react'
 import { updateStudent, removeStudent } from '../../api/students/methods.js'
 import StudentRowEditable from './StudentRowEditable'
 import StudentRowDisplay from './StudentRowDisplay'

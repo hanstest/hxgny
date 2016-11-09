@@ -1,10 +1,13 @@
-import '../../api/users/server/publications.js'
-import '../../api/users/methods.js'
+import '../../api/users/server/publications'
+import '../../api/users/methods'
 
-import '../../api/students/server/publications.js'
-import '../../api/students/methods.js'
+import '../../api/students/server/publications'
+import '../../api/students/methods'
 
-import '../../api/courses/server/publications.js'
-import '../../api/courses/methods.js'
+import '../../api/courses/server/publications'
+import '../../api/courses/methods'
+
+import '../../api/states/server/publications'
+import '../../api/states/methods'
 
 // TODO

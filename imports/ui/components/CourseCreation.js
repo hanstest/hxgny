@@ -10,7 +10,6 @@ import sessions from '../../api/data/sessions'
 import regstatuses from '../../api/data/regstatuses'
 import terms from '../../api/data/terms'
 
-
 class CourseCreation extends React.Component {
   state = {
     searched: false,
@@ -205,8 +204,8 @@ class CourseCreation extends React.Component {
                   />
                   <Form.Input
                     label='学费'
-                    name='semesterFee'
-                    placeholder='Semester tuition'
+                    name='tuition'
+                    placeholder='Tuition'
                     type='number'
                     defaultValue={0.0}
                   />
@@ -219,15 +218,15 @@ class CourseCreation extends React.Component {
                   />
                   <Form.Input
                     label='注册费'
-                    name='specialFee'
-                    placeholder='Special feed'
+                    name='regFee'
+                    placeholder='Registration fee'
                     type='number'
                     defaultValue={0.0}
                   />
                   <Form.Input
                     label='其它费用'
-                    name='specialFee'
-                    placeholder='Special feed'
+                    name='extraFee'
+                    placeholder='Extra feed'
                     type='number'
                     defaultValue={0.0}
                   />
