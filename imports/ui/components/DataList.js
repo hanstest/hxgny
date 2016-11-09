@@ -11,7 +11,6 @@ class DataList extends React.Component {
     open: false,
     confirmed: false,
     items: this.props.items,
-    key: (new Date()).getTime(),
   }
   
   toggleEditing = (itemId) => {
@@ -37,7 +36,7 @@ class DataList extends React.Component {
       if (error) {
         console.log(error.reason)
       } else {
-        this.setState({ key: (new Date()).getTime() })
+        this.props.refresh()
       }
     })
   }
@@ -54,7 +53,8 @@ class DataList extends React.Component {
       if (error) {
         console.log(error.reason)
       } else {
-        this.setState({ editing: null, key: (new Date()).getTime() })
+        this.setState({ editing: null })
+        this.props.refresh()
       }
     })
   }
@@ -71,10 +71,7 @@ class DataList extends React.Component {
         console.log(error.reason)
       } else {
         this.setState({ open: false, itemId: null })
-        // Close the modal in three seconds
-        setInterval(() => {
-          this.setState({ key: (new Date()).getTime() })
-        }, 3000)
+        this.props.refresh()
       }
     })
   }
@@ -140,7 +137,7 @@ class DataList extends React.Component {
   render() {
     const { open, items } = this.state
     return (
-      <Grid textAlign='left' width={16} key={this.state.key}>
+      <Grid textAlign='left' width={16}>
         <Grid.Row>
           <Grid.Column mobile={16} tablet={16} computer={16}>
             <Header as='h2' content={this.props.dataType + '管理'} />
@@ -210,6 +207,7 @@ class DataList extends React.Component {
 DataList.propTypes = {
   dataType: React.PropTypes.string,
   items: React.PropTypes.array,
+  refresh: React.PropTypes.func,
   insertItem: React.PropTypes.object,
   updateItem: React.PropTypes.object,
   removeItem: React.PropTypes.object,
