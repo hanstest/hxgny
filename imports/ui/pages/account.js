@@ -13,6 +13,7 @@ import CourseRegistration from '../components/CourseRegistration'
 
 import StateList from '../containers/state-list'
 import TermList from '../containers/term-list'
+import ClassroomList from '../containers/classroom-list'
 
 const activeItems = ['个人资料', '添加教师', '添加课程', '学期管理']
 
@@ -204,9 +205,9 @@ class Account extends React.Component {
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
-                        name='教室地点'
+                        name='教室管理'
                         index={3}
-                        active={activeItemLeft === '教室地点'}
+                        active={activeItemLeft === '教室管理'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
@@ -225,8 +226,8 @@ class Account extends React.Component {
                       <div hidden={activeItemLeft !== '州名管理'}>
                         <StateList />
                       </div>
-                      <div hidden={activeItemLeft !== '教室地点'}>
-                        Placeholder
+                      <div hidden={activeItemLeft !== '教室管理'}>
+                        <ClassroomList />
                       </div>
                       <div hidden={activeItemLeft !== '上课时间'}>
                         Placeholder
