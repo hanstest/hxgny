@@ -14,6 +14,7 @@ import CourseRegistration from '../components/CourseRegistration'
 import StateList from '../containers/state-list'
 import TermList from '../containers/term-list'
 import ClassroomList from '../containers/classroom-list'
+import SessionList from '../containers/session-list'
 
 const activeItems = ['个人资料', '添加教师', '添加课程', '学期管理']
 
@@ -230,7 +231,7 @@ class Account extends React.Component {
                         <ClassroomList />
                       </div>
                       <div hidden={activeItemLeft !== '上课时间'}>
-                        Placeholder
+                        <SessionList />
                       </div>
                     </div>
                   </Grid.Column>
