@@ -7,7 +7,7 @@ import '../../api/students/methods'
 import '../../api/courses/server/publications'
 import '../../api/courses/methods'
 
-import '../../api/states/server/publications'
-import '../../api/states/methods'
+import '../../api/data/server/publications'
+import '../../api/data/methods'
 
 // TODO

@@ -24,7 +24,13 @@ const schema = new SimpleSchema({
   },
 })
 
-export const Terms = new Mongo.Collection('states')
+export const States = new Mongo.Collection('states')
+States.allow(allowList)
+States.deny(denyList)
+States.schema = schema
+States.attachSchema(schema)
+
+export const Terms = new Mongo.Collection('terms')
 Terms.allow(allowList)
 Terms.deny(denyList)
 Terms.schema = schema
@@ -36,11 +42,11 @@ Genders.deny(denyList)
 Genders.schema = schema
 Genders.attachSchema(schema)
 
-export const CourseCategories = new Mongo.Collection('categories')
-CourseCategories.allow(allowList)
-CourseCategories.deny(denyList)
-CourseCategories.schema = schema
-CourseCategories.attachSchema(schema)
+export const Categories = new Mongo.Collection('categories')
+Categories.allow(allowList)
+Categories.deny(denyList)
+Categories.schema = schema
+Categories.attachSchema(schema)
 
 export const Classrooms = new Mongo.Collection('classrooms')
 Classrooms.allow(allowList)
@@ -57,9 +63,11 @@ RegStatuses.attachSchema(schema)
 export const Sessions = new Mongo.Collection('sessions')
 Sessions.allow(allowList)
 Sessions.deny(denyList)
+Sessions.schema = schema
 Sessions.attachSchema(schema)
 
 export const Semesters = new Mongo.Collection('semesters')
 Semesters.allow(allowList)
 Semesters.deny(denyList)
+Semesters.schema = schema
 Semesters.attachSchema(schema)

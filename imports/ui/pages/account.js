@@ -12,14 +12,15 @@ import CourseCreation from '../components/CourseCreation'
 import CourseRegistration from '../components/CourseRegistration'
 
 import StateList from '../containers/state-list'
+import TermList from '../containers/term-list'
 
-const activeItems = ['个人资料', '添加教师', '添加课程', '课程学期']
+const activeItems = ['个人资料', '添加教师', '添加课程', '学期管理']
 
 class Account extends React.Component {
   // state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
   // state = { activeItemTop: '个人中心', activeItemLeft: '注册课程' }
   // state = { activeItemTop: '课程管理', activeItemLeft: '添加课程' }
-  state = { activeItemTop: '数据管理', activeItemLeft: '课程学期' }
+  state = { activeItemTop: '数据管理', activeItemLeft: '学期管理' }
   
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
@@ -191,21 +192,21 @@ class Account extends React.Component {
                   <Grid.Column width={2}>
                     <Menu fluid pointing secondary vertical>
                       <Menu.Item
-                        name='课程学期'
+                        name='学期管理'
                         index={3}
-                        active={activeItemLeft === '课程学期'}
+                        active={activeItemLeft === '学期管理'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
+                        name='州名管理'
+                        index={3}
+                        active={activeItemLeft === '州名管理'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
                         name='教室地点'
                         index={3}
                         active={activeItemLeft === '教室地点'}
-                        onClick={this.handleLeftItemClick}
-                      />
-                      <Menu.Item
-                        name='美国州名'
-                        index={3}
-                        active={activeItemLeft === '美国州名'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
@@ -218,13 +219,13 @@ class Account extends React.Component {
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
                     <div>
-                      <div hidden={activeItemLeft !== '课程学期'}>
+                      <div hidden={activeItemLeft !== '学期管理'}>
+                        <TermList />
+                      </div>
+                      <div hidden={activeItemLeft !== '州名管理'}>
                         <StateList />
                       </div>
                       <div hidden={activeItemLeft !== '教室地点'}>
-                        Placeholder
-                      </div>
-                      <div hidden={activeItemLeft !== '美国州名'}>
                         Placeholder
                       </div>
                       <div hidden={activeItemLeft !== '上课时间'}>

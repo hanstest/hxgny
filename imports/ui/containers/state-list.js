@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 import { composeWithTracker } from 'react-komposer'
-import { States } from '../../api/states/states'
+import { States } from '../../api/data/data'
 import StateList from '../components/StateList'
 import Loading from '../components/loading'
 
