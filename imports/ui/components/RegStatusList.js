@@ -1,8 +1,8 @@
 import React from 'react'
 import DataList from '../components/DataList'
-import { insertTerm, updateTerm, removeTerm } from '../../api/data/methods'
+import { insertRegStatus, updateRegStatus, removeRegStatus } from '../../api/data/methods'
 
-class TermList extends React.Component {
+class RegStatusList extends React.Component {
   state = {
     key: (new Date()).getTime(),
   }
@@ -15,19 +15,19 @@ class TermList extends React.Component {
     return (
       <DataList
         key={this.state.key}
-        dataType='学制'
+        dataType='注册状态'
         items={this.props.items}
         refresh={this.refresh}
-        insertItem={insertTerm}
-        updateItem={updateTerm}
-        removeItem={removeTerm}
+        insertItem={insertRegStatus}
+        updateItem={updateRegStatus}
+        removeItem={removeRegStatus}
       />
     )
   }
 }
 
-TermList.propTypes = {
+RegStatusList.propTypes = {
   items: React.PropTypes.array,
 }
 
-export default TermList
+export default RegStatusList

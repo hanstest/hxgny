@@ -15,6 +15,10 @@ import StateList from '../containers/state-list'
 import TermList from '../containers/term-list'
 import ClassroomList from '../containers/classroom-list'
 import SessionList from '../containers/session-list'
+import GenderList from '../containers/gender-list'
+import CategoryList from '../containers/category-list'
+import RegStatusList from '../containers/regstatus-list'
+import SemesterList from '../containers/semester-list'
 
 const activeItems = ['个人资料', '添加教师', '添加课程', '学期管理']
 
@@ -200,6 +204,12 @@ class Account extends React.Component {
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
+                        name='学制管理'
+                        index={3}
+                        active={activeItemLeft === '学制管理'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
                         name='州名管理'
                         index={3}
                         active={activeItemLeft === '州名管理'}
@@ -217,11 +227,32 @@ class Account extends React.Component {
                         active={activeItemLeft === '上课时间'}
                         onClick={this.handleLeftItemClick}
                       />
+                      <Menu.Item
+                        name='性别管理'
+                        index={3}
+                        active={activeItemLeft === '性别管理'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
+                        name='课程类别'
+                        index={3}
+                        active={activeItemLeft === '课程类别'}
+                        onClick={this.handleLeftItemClick}
+                      />
+                      <Menu.Item
+                        name='注册状态'
+                        index={3}
+                        active={activeItemLeft === '注册状态'}
+                        onClick={this.handleLeftItemClick}
+                      />
                     </Menu>
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
                     <div>
                       <div hidden={activeItemLeft !== '学期管理'}>
+                        <SemesterList />
+                      </div>
+                      <div hidden={activeItemLeft !== '学制管理'}>
                         <TermList />
                       </div>
                       <div hidden={activeItemLeft !== '州名管理'}>
@@ -232,6 +263,15 @@ class Account extends React.Component {
                       </div>
                       <div hidden={activeItemLeft !== '上课时间'}>
                         <SessionList />
+                      </div>
+                      <div hidden={activeItemLeft !== '性别管理'}>
+                        <GenderList />
+                      </div>
+                      <div hidden={activeItemLeft !== '课程类别'}>
+                        <CategoryList />
+                      </div>
+                      <div hidden={activeItemLeft !== '注册状态'}>
+                        <RegStatusList />
                       </div>
                     </div>
                   </Grid.Column>
