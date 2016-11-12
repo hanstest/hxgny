@@ -6,7 +6,7 @@ import TeacherList from './teacher-list'
 import TeacherCreation from '../components/TeacherCreation'
 
 import StudentList from '../containers/student-list'
-import StudentCreation from '../components/StudentCreation'
+import StudentCreation from '../containers/student-creation'
 
 import CourseCreation from '../components/CourseCreation'
 import CourseRegistration from '../components/CourseRegistration'

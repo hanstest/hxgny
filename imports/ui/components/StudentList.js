@@ -75,6 +75,7 @@ class StudentList extends React.Component {
         <StudentRowEditable
           key={student._id}
           student={student}
+          genders={this.props.genders}
           updateStudent={() => this.handleUpdateStudent(studentId)}
           removeStudent={() => this.showConfirmation(studentId)}
           handleChangeFirst={this.handleChangeFirstName}
@@ -168,6 +169,7 @@ class StudentList extends React.Component {
 
 StudentList.propTypes = {
   students: React.PropTypes.array,
+  genders: React.PropTypes.array,
 }
 
 export default StudentList

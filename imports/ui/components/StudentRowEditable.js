@@ -1,6 +1,5 @@
 import React from 'react'
 import { Table, Button, Input, Select, Icon } from 'semantic-ui-react'
-import genders from '../../api/data/genders'
 
 /**
  * Create a user
@@ -49,7 +48,7 @@ const StudentRowEditable = (props) => (
     <Table.Cell>
       <Select
         name='gender'
-        options={genders}
+        options={props.genders}
         defaultValue={props.student.gender}
         onChange={props.handleChangeGender}
       />
@@ -65,6 +64,7 @@ const StudentRowEditable = (props) => (
 
 StudentRowEditable.propTypes = {
   student: React.PropTypes.object,
+  genders: React.PropTypes.array,
   updateStudent: React.PropTypes.func,
   removeStudent: React.PropTypes.func,
   handleChangeFirst: React.PropTypes.func,

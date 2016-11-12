@@ -3,7 +3,6 @@ import React from 'react'
 import { Grid, Button, Header, Form, Modal } from 'semantic-ui-react'
 import { DatePickerInput } from 'rc-datepicker'
 import { insertStudent } from '../../api/students/methods.js'
-import genders from '../../api/data/genders'
 
 class StudentCreation extends React.Component {
   state = { key: (new Date()).getTime(), open: false }
@@ -68,7 +67,7 @@ class StudentCreation extends React.Component {
                   type='text'
                 />
                 
-                <Form.Select label='Gender' name='gender' options={genders} placeholder='Select gender' />
+                <Form.Select label='Gender' name='gender' options={this.props.genders} placeholder='Select gender' />
   
                 <Form.Field>
                   <Grid.Column>
@@ -113,6 +112,10 @@ class StudentCreation extends React.Component {
       </Grid>
     )
   }
+}
+
+StudentCreation.propTypes = {
+  genders: React.PropTypes.array,
 }
 
 export default StudentCreation
