@@ -8,7 +8,7 @@ import TeacherCreation from '../components/TeacherCreation'
 import StudentList from '../containers/student-list'
 import StudentCreation from '../containers/student-creation'
 
-import CourseCreation from '../components/CourseCreation'
+import CourseCreation from '../containers/course-creation'
 import CourseRegistration from '../containers/course-registration'
 
 import StateList from '../containers/state-list'

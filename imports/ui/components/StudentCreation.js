@@ -1,8 +1,10 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
+import _ from 'lodash'
 import { Grid, Button, Header, Form, Modal } from 'semantic-ui-react'
 import { DatePickerInput } from 'rc-datepicker'
 import { insertStudent } from '../../api/students/methods.js'
+import { stripId } from '../../api/data/utils'
 
 class StudentCreation extends React.Component {
   state = { key: (new Date()).getTime(), open: false }
@@ -32,6 +34,7 @@ class StudentCreation extends React.Component {
   
   render() {
     const { open } = this.state
+    const genders = _.map(this.props.genders, stripId)
     
     return (
       <Grid textAlign='left' width={16}>
@@ -66,8 +69,8 @@ class StudentCreation extends React.Component {
                   placeholder='中文姓名'
                   type='text'
                 />
-                
-                <Form.Select label='Gender' name='gender' options={this.props.genders} placeholder='Select gender' />
+  
+                <Form.Select label='Gender' name='gender' options={genders} placeholder='Select gender' />
   
                 <Form.Field>
                   <Grid.Column>
@@ -90,7 +93,6 @@ class StudentCreation extends React.Component {
                     </Grid.Row>
                   </Grid.Column>
                 </Form.Field>
-                
               </Form.Group>
               
               <Button primary type='submit'>添加学生</Button>

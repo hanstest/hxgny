@@ -1,14 +1,16 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
+import _ from 'lodash'
 import { Grid, Button, Header, Form, Modal, Table } from 'semantic-ui-react'
-import { insertCourse } from '../../api/courses/methods.js'
-import semesters from '../../api/data/semesters'
+import { insertCourse } from '../../api/courses/methods'
 import courses from '../../api/data/courses'
 import categories from '../../api/data/categories'
 import classrooms from '../../api/data/classrooms'
 import sessions from '../../api/data/sessions'
 import regstatuses from '../../api/data/regstatuses'
 import terms from '../../api/data/terms'
+
+import { stripId } from '../../api/data/utils'
 
 class CourseCreation extends React.Component {
   state = {
@@ -79,6 +81,7 @@ class CourseCreation extends React.Component {
   
   render() {
     const { searched, teacher, openNoTeacherWarning, openNewCourseConfirmation } = this.state
+    const semesters = _.map(this.props.semesters, stripId)
     
     return (
       <Grid textAlign='left' width={16} key={this.state.key}>
@@ -264,6 +267,10 @@ class CourseCreation extends React.Component {
       </Grid>
     )
   }
+}
+
+CourseCreation.propTypes = {
+  semesters: React.PropTypes.array,
 }
 
 export default CourseCreation
