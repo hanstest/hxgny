@@ -71,3 +71,9 @@ Semesters.allow(allowList)
 Semesters.deny(denyList)
 Semesters.schema = schema
 Semesters.attachSchema(schema)
+
+export const Classes = new Mongo.Collection('classes')
+Classes.allow(allowList)
+Classes.deny(denyList)
+Classes.schema = schema
+Classes.attachSchema(schema)

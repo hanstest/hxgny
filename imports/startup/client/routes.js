@@ -6,7 +6,7 @@ import App from '../../ui/layouts/app'
 import Index from '../../ui/pages/index'
 
 import Login from '../../ui/pages/login'
-import Signup from '../../ui/pages/signup'
+import Signup from '../../ui/containers/signup'
 import Account from '../../ui/pages/account'
 
 // import { NotFound } from '../../ui/pages/not-found';

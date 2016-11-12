@@ -1,4 +1,4 @@
-import { States, Terms, Genders, Categories, Classrooms, RegStatuses, Sessions, Semesters } from './data'
+import { States, Terms, Genders, Categories, Classrooms, RegStatuses, Sessions, Semesters, Classes } from './data'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 
@@ -201,5 +201,29 @@ export const removeSemester = new ValidatedMethod({
   validate: schemaValidatorRemove,
   run({ _id }) {
     Semesters.remove(_id)
+  },
+})
+
+export const insertClass = new ValidatedMethod({
+  name: 'classes.insert',
+  validate: Classes.schema.validator(),
+  run(doc) {
+    Classes.insert(doc)
+  },
+})
+
+export const updateClass = new ValidatedMethod({
+  name: 'classes.update',
+  validate: schemaValidatorUpdate,
+  run({ _id, update }) {
+    Classes.update(_id, { $set: update })
+  },
+})
+
+export const removeClass = new ValidatedMethod({
+  name: 'classes.remove',
+  validate: schemaValidatorRemove,
+  run({ _id }) {
+    Classes.remove(_id)
   },
 })

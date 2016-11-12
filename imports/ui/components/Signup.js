@@ -1,11 +1,12 @@
 import React from 'react'
-import { Grid, Form, Button, Input, Header, Divider, Checkbox, Message } from 'semantic-ui-react'
+import _ from 'lodash'
+import { Grid, Form, Button, Input, Header, Divider, Checkbox } from 'semantic-ui-react'
 import handleSignup from '../../modules/signup'
-import states from '../../api/data/states'
+import { stripId } from '../../api/data/utils'
 
 class Signup extends React.Component {
-  state = { serializedForm: {} };
-
+  state = {}
+  
   handleChange = (e, { value }) => this.setState({ value });
 
   handleSubmit = (e, serializedForm) => {
@@ -15,7 +16,9 @@ class Signup extends React.Component {
   }
 
   render() {
-    const { serializedForm, value } = this.state
+    const { value } = this.state
+    const states = _.map(this.props.states, stripId)
+    
     return (
       <Grid textAlign='left' columns={4}>
         <Grid.Row centered>
@@ -108,17 +111,16 @@ class Signup extends React.Component {
               </Form.Group>
 
               <Button primary type='submit'>Submit</Button>
-
-              <Message>
-                <pre>serializedForm: {JSON.stringify(serializedForm, null, 2)}</pre>
-              </Message>
-
             </Form>
           </Grid.Column>
         </Grid.Row>
       </Grid>
     )
   }
+}
+
+Signup.propTypes = {
+  states: React.PropTypes.array,
 }
 
 export default Signup

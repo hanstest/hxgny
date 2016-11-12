@@ -3,13 +3,6 @@ import React from 'react'
 import _ from 'lodash'
 import { Grid, Button, Header, Form, Modal, Table } from 'semantic-ui-react'
 import { insertCourse } from '../../api/courses/methods'
-import courses from '../../api/data/courses'
-import categories from '../../api/data/categories'
-import classrooms from '../../api/data/classrooms'
-import sessions from '../../api/data/sessions'
-import regstatuses from '../../api/data/regstatuses'
-import terms from '../../api/data/terms'
-
 import { stripId } from '../../api/data/utils'
 
 class CourseCreation extends React.Component {
@@ -82,6 +75,12 @@ class CourseCreation extends React.Component {
   render() {
     const { searched, teacher, openNoTeacherWarning, openNewCourseConfirmation } = this.state
     const semesters = _.map(this.props.semesters, stripId)
+    const regstatuses = _.map(this.props.regstatuses, stripId)
+    const classrooms = _.map(this.props.classrooms, stripId)
+    const sessions = _.map(this.props.sessions, stripId)
+    const categories = _.map(this.props.categories, stripId)
+    const classes = _.map(this.props.classes, stripId)
+    const terms = _.map(this.props.terms, stripId)
     
     return (
       <Grid textAlign='left' width={16} key={this.state.key}>
@@ -146,7 +145,7 @@ class CourseCreation extends React.Component {
                   <Form.Select
                     label='课程班级'
                     name='course'
-                    options={courses}
+                    options={classes}
                     placeholder='Select course'
                   />
                   <Form.Select
@@ -271,6 +270,12 @@ class CourseCreation extends React.Component {
 
 CourseCreation.propTypes = {
   semesters: React.PropTypes.array,
+  regstatuses: React.PropTypes.array,
+  classrooms: React.PropTypes.array,
+  sessions: React.PropTypes.array,
+  categories: React.PropTypes.array,
+  classes: React.PropTypes.array,
+  terms: React.PropTypes.array,
 }
 
 export default CourseCreation

@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { States, Terms, Genders, Categories, Classrooms, RegStatuses, Sessions, Semesters } from '../data'
+import { States, Terms, Genders, Categories, Classrooms, RegStatuses, Sessions, Semesters, Classes } from '../data'
 
 Meteor.publish('states', function () {
   return States.find()
@@ -30,5 +30,9 @@ Meteor.publish('sessions', function () {
 })
 
 Meteor.publish('semesters', function () {
-  return Semesters.find()
+  return Semesters.find({}, { sort: { text: -1 } })
+})
+
+Meteor.publish('classes', function () {
+  return Classes.find()
 })

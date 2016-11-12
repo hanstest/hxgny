@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
+import _ from 'lodash'
 import { Grid, Button, Header, Form, Modal } from 'semantic-ui-react'
-import states from '../../api/data/states'
-import genders from '../../api/data/genders'
+import { stripId } from '../../api/data/utils'
 
 class TeacherCreation extends React.Component {
   state = {
@@ -86,6 +86,8 @@ class TeacherCreation extends React.Component {
   
   render() {
     const { open } = this.state
+    const genders = _.map(this.props.genders, stripId)
+    const states = _.map(this.props.states, stripId)
     
     return (
       <Grid textAlign='left' width={16}>
@@ -177,6 +179,11 @@ class TeacherCreation extends React.Component {
       </Grid>
     )
   }
+}
+
+TeacherCreation.propTypes = {
+  genders: React.PropTypes.array,
+  states: React.PropTypes.array,
 }
 
 export default TeacherCreation

@@ -3,7 +3,7 @@ import { Grid, Menu, Segment } from 'semantic-ui-react'
 import CourseScheduling from './course-scheduling'
 
 import TeacherList from './teacher-list'
-import TeacherCreation from '../components/TeacherCreation'
+import TeacherCreation from '../containers/teacher-creation'
 
 import StudentList from '../containers/student-list'
 import StudentCreation from '../containers/student-creation'
@@ -19,6 +19,7 @@ import GenderList from '../containers/gender-list'
 import CategoryList from '../containers/category-list'
 import RegStatusList from '../containers/regstatus-list'
 import SemesterList from '../containers/semester-list'
+import ClassList from '../containers/class-list'
 
 const activeItems = ['个人资料', '添加教师', '添加课程', '学期管理']
 
@@ -245,6 +246,12 @@ class Account extends React.Component {
                         active={activeItemLeft === '注册状态'}
                         onClick={this.handleLeftItemClick}
                       />
+                      <Menu.Item
+                        name='课程名称'
+                        index={3}
+                        active={activeItemLeft === '课程名称'}
+                        onClick={this.handleLeftItemClick}
+                      />
                     </Menu>
                   </Grid.Column>
                   <Grid.Column stretched width={14}>
@@ -272,6 +279,9 @@ class Account extends React.Component {
                       </div>
                       <div hidden={activeItemLeft !== '注册状态'}>
                         <RegStatusList />
+                      </div>
+                      <div hidden={activeItemLeft !== '课程名称'}>
+                        <ClassList />
                       </div>
                     </div>
                   </Grid.Column>
