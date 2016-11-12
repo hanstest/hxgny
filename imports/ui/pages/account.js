@@ -9,7 +9,7 @@ import StudentList from '../containers/student-list'
 import StudentCreation from '../containers/student-creation'
 
 import CourseCreation from '../components/CourseCreation'
-import CourseRegistration from '../components/CourseRegistration'
+import CourseRegistration from '../containers/course-registration'
 
 import StateList from '../containers/state-list'
 import TermList from '../containers/term-list'

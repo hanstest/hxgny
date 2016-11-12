@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Header, Dropdown, Button, Message, Divider } from 'semantic-ui-react'
 import CourseList from './CourseList'
 import CourseListToRegister from './CourseListToRegister'
+import _ from 'lodash'
 
 const optionsSemester = [
   { text: '2017 春季', value: '2017 Spring' },
@@ -35,6 +36,11 @@ const removeCourseSelected = (coursesSelected, courseId) => {
 }
 
 class CourseRegistration extends React.Component {
+  
+  formatStudent = (student) => {
+    return { text: student.chinese, value: student.chinese }
+  }
+  
   state = {
     optionsSemester,
     optionsCourseType,
@@ -69,11 +75,8 @@ class CourseRegistration extends React.Component {
         checked: false,
       },
     ],
-  
-    students: [
-      { text: '韩凯文', value: '韩凯文' },
-      { text: '韩韦德', value: '韩韦德' },
-    ],
+    
+    students: _.map(this.props.students, this.formatStudent),
   }
   
   handleSemesterChange = (e, { value }) => this.setState({ semesterSelected: value })
@@ -219,6 +222,10 @@ class CourseRegistration extends React.Component {
       </Grid>
     )
   }
+}
+
+CourseRegistration.propTypes = {
+  students: React.PropTypes.array,
 }
 
 export default CourseRegistration
