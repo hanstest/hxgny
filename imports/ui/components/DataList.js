@@ -1,7 +1,8 @@
 import React from 'react'
-import { Grid, Table, Header, Modal, Button, Icon, Input } from 'semantic-ui-react'
+import { Grid, Table, Header, Modal, Button, Icon, Input, Menu } from 'semantic-ui-react'
 
 const NEW_DATA_ID = 'NEW_DATA_ID'
+const ITEMS_PER_PAGE = 10
 
 class DataList extends React.Component {
   state = {
@@ -165,7 +166,7 @@ class DataList extends React.Component {
               <Table.Footer fullWidth>
                 <Table.Row>
                   <Table.HeaderCell colSpan='4'>
-                    <Button floated='right' primary size='small' onClick={this.addNewItemRow}>Add</Button>
+                    <Button floated='right' primary onClick={this.addNewItemRow}>Add</Button>
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Footer>
