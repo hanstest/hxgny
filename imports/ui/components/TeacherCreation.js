@@ -74,7 +74,7 @@ class TeacherCreation extends React.Component {
   
     this.setState({ open: true })
     // Close the modal in three seconds
-    setInterval(() => {
+    setTimeout(() => {
       this.setState({
         key: (new Date()).getTime(),
         open: false,

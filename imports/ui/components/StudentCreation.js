@@ -27,7 +27,7 @@ class StudentCreation extends React.Component {
       } else {
         this.setState({ open: true })
         // Close the modal in three seconds
-        setInterval(() => { this.setState({ key: (new Date()).getTime(), open: false }) }, 3000)
+        setTimeout(() => { this.setState({ key: (new Date()).getTime(), open: false }) }, 3000)
       }
     })
   }
@@ -35,6 +35,7 @@ class StudentCreation extends React.Component {
   render() {
     const { open } = this.state
     const genders = _.map(this.props.genders, stripId)
+    console.log(this.state.key)
     
     return (
       <Grid textAlign='left' width={16}>
@@ -70,7 +71,12 @@ class StudentCreation extends React.Component {
                   type='text'
                 />
   
-                <Form.Select label='Gender' name='gender' options={genders} placeholder='Select gender' />
+                <Form.Select
+                  label='Gender'
+                  name='gender'
+                  options={genders}
+                  placeholder='Select gender'
+                />
   
                 <Form.Field>
                   <Grid.Column>

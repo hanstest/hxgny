@@ -32,7 +32,7 @@ class CourseCreation extends React.Component {
         searched: true,
         openNoTeacherWarning: true,
       })
-      setInterval(() => {
+      setTimeout(() => {
         this.setState({
           searched: false,
           openNoTeacherWarning: false,
@@ -61,7 +61,7 @@ class CourseCreation extends React.Component {
         this.setState({ openNewCourseConfirmation: true })
   
         // Close the modal in three seconds
-        setInterval(() => {
+        setTimeout(() => {
           this.setState({
             searched: false,
             openNewCourseConfirmation: false,

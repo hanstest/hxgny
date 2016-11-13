@@ -6,8 +6,6 @@ import { Meteor } from 'meteor/meteor'
 const userName = () => {
   const user = Meteor.user()
   const contact = user.profile.contact
-  console.log(user)
-  console.log(contact)
   const name = user && user.profile ? user.profile.name[contact] : ''
   let displayName = 'User'
   if (name.chinese) {
