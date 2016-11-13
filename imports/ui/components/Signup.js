@@ -5,14 +5,15 @@ import handleSignup from '../../modules/signup'
 import { stripId } from '../../api/data/utils'
 
 class Signup extends React.Component {
-  state = {}
+  state = { value: 'mother' }
   
   handleChange = (e, { value }) => this.setState({ value });
-
-  handleSubmit = (e, serializedForm) => {
+  
+  handleSubmit = (e, formData) => {
     e.preventDefault()
-    this.setState({ serializedForm })
-    handleSignup(serializedForm)
+    
+    console.log(formData)
+    handleSignup(formData)
   }
 
   render() {
@@ -55,49 +56,67 @@ class Signup extends React.Component {
                 <Grid columns={2} divided>
                   <Grid.Row>
                     <Grid.Column>
-                      <Header as='h4'>Father / Legal Guardian</Header>
-                      <label>First Name</label>
-                      <Input name='fatherFirstName' />
-                      <label>Last Name</label>
-                      <Input name='fatherLastName' />
-                      <label>中文姓名</label>
-                      <Input name='fatherChineseName' />
-                      <Checkbox name='fatherAsStudent' style={{ paddingTop: '5px' }} label='Add as student' toggle />
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Header as='h4'>Mother / Legal Guardian</Header>
+                      <Header as='h4'>Mother</Header>
                       <label>First Name</label>
                       <Input name='motherFirstName' />
                       <label>Last Name</label>
                       <Input name='motherLastName' />
                       <label>中文姓名</label>
                       <Input name='motherChineseName' />
-                      <Checkbox name='motherAsStudent' style={{ paddingTop: '5px' }} label='Add as student' toggle />
+                      <label>Email</label>
+                      <Input icon='mail' iconPosition='left' name='motherEmail' />
+                      <label>Mobile Number</label>
+                      <Input
+                        icon='text telephone'
+                        iconPosition='left'
+                        name='motherMobile'
+                        placeholder='(xxx) xxx-xxxx'
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Header as='h4'>Father</Header>
+                      <label>First Name</label>
+                      <Input name='fatherFirstName' />
+                      <label>Last Name</label>
+                      <Input name='fatherLastName' />
+                      <label>中文姓名</label>
+                      <Input name='fatherChineseName' />
+                      <label>Email</label>
+                      <Input icon='mail' iconPosition='left' name='fatherEmail' />
+                      <label>Mobile Number</label>
+                      <Input
+                        icon='text telephone'
+                        iconPosition='left'
+                        name='fatherMobil'
+                        placeholder='(xxx) xxx-xxxx'
+                      />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
               </Form.Field>
-
+  
+              <Divider section />
+              
               <Form.Field>
                 <Header as='h4'>Main Contact</Header>
                 <Form.Group inline>
                   <Form.Radio
-                    label='Father / Legal Guardian'
-                    name='contact'
-                    value='father'
-                    checked={value === 'father'}
-                    onChange={this.handleChange}
-                  />
-                  <Form.Radio
-                    label='Mother / Legal Guardian'
+                    label='Mother'
                     name='contact'
                     value='mother'
                     checked={value === 'mother'}
                     onChange={this.handleChange}
                   />
+                  <Form.Radio
+                    label='Father'
+                    name='contact'
+                    value='father'
+                    checked={value === 'father'}
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
               </Form.Field>
-
+              
               <Divider section />
 
               <Header as='h4'>Mailing Address</Header>

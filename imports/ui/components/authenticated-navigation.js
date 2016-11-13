@@ -3,11 +3,13 @@ import { Menu } from 'semantic-ui-react'
 import { browserHistory } from 'react-router'
 import { Meteor } from 'meteor/meteor'
 
-// TODO Needs to properly display user's name info after user login
 const userName = () => {
   const user = Meteor.user()
-  const name = user && user.profile ? user.profile.name : ''
-  let displayName = ''
+  const contact = user.profile.contact
+  console.log(user)
+  console.log(contact)
+  const name = user && user.profile ? user.profile.name[contact] : ''
+  let displayName = 'User'
   if (name.chinese) {
     displayName = `${name.chinese}`
   } else {

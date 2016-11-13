@@ -6,15 +6,17 @@ import { Accounts } from 'meteor/accounts-base'
  * @param userInfo Information about the user
  * @param userInfo.email email address as the log in user name
  * @param userInfo.password login password
- * @param userInfo.fatherAsStudent indicator whether the father is a student
  * @param userInfo.fatherFirstName the first name of the father
  * @param userInfo.fatherLastName the last name of the father
  * @param userInfo.fatherChineseName the Chinese name of the father
- * @param userInfo.motherAsStudent indicator whether the mother is a student
+ * @param userInfo.fatherEmail the email address of the father
+ * @param userInfo.fatherMobile the mobile number of the father
  * @param userInfo.motherFirstName the first name of the mother
  * @param userInfo.motherLastName the last name of the mother
  * @param userInfo.motherChineseName the Chinese name of the mother
- * @param userInfo.contact indicate who is the main contact
+ * @param userInfo.motherEmail the email address of the mother
+ * @param userInfo.motherMobile the mobile number of the mother
+ * @param userInfo.contact the main contact of the user account
  * @param userInfo.street street name
  * @param userInfo.city city name
  * @param userInfo.state state name
@@ -26,47 +28,32 @@ const getUserData = (userInfo) => {
   user.email = userInfo.email
   user.password = userInfo.password
   
-  const profile = { name: {}, father: {}, mother: {}, students: [] }
-  if (userInfo.contact === 'father') {
-    profile.name.first = userInfo.fatherFirstName
-    profile.name.last = userInfo.fatherLastName
-    profile.name.chinese = userInfo.fatherChineseName
-  } else {
-    profile.name.first = userInfo.motherFirstName
-    profile.name.last = userInfo.motherLastName
-    profile.name.chinese = userInfo.motherChineseName
+  const profile = {
+    name: {
+      father: {},
+      mother: {},
+    },
+    address: {},
+    contact: userInfo.contact,
   }
-  profile.father.first = userInfo.fatherFirstName
-  profile.father.last = userInfo.fatherLastName
-  profile.father.chinese = userInfo.fatherChineseName
-  profile.mother.first = userInfo.motherFirstName
-  profile.mother.last = userInfo.motherLastName
-  profile.mother.chinese = userInfo.motherChineseName
+  profile.name.father.first = userInfo.fatherFirstName
+  profile.name.father.last = userInfo.fatherLastName
+  profile.name.father.chinese = userInfo.fatherChineseName
+  profile.name.father.email = userInfo.fatherEmail
+  profile.name.father.mobile = userInfo.fatherMobile
   
-  if (userInfo.fatherAsStudent) {
-    profile.students.push({
-      first: userInfo.fatherFirstName,
-      last: userInfo.fatherLastName,
-      chinese: userInfo.fatherChineseName,
-    })
-  }
-  if (userInfo.motherAsStudent) {
-    profile.students.push({
-      first: userInfo.motherFirstName,
-      last: userInfo.motherLastName,
-      chinese: userInfo.motherChineseName,
-    })
-  }
+  profile.name.mother.first = userInfo.motherFirstName
+  profile.name.mother.last = userInfo.motherLastName
+  profile.name.mother.chinese = userInfo.motherChineseName
+  profile.name.mother.email = userInfo.motherEmail
+  profile.name.mother.mobile = userInfo.motherMobile
+  
+  profile.address.street = userInfo.street
+  profile.address.city = userInfo.city
+  profile.address.state = userInfo.state
+  profile.address.zip = userInfo.zip
   
   user.profile = profile
-  
-  user.profile.address = {
-    street: userInfo.street,
-    city: userInfo.city,
-    state: userInfo.state,
-    zip: userInfo.zip,
-  }
-  
   user.roles = ['user']
   
   return user

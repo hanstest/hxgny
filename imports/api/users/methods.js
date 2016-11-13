@@ -8,7 +8,7 @@ Meteor.methods({
     check(options, {
       email: String,
       password: String,
-      profile: { name: Object, gender: String, address: Object },
+      profile: { name: Object, address: Object },
     })
     check(roles, [String])
   
