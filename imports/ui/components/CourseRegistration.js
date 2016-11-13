@@ -94,7 +94,7 @@ class CourseRegistration extends React.Component {
   
   handleToggleCourse = (e, { name, checked }) => {
     e.preventDefault()
-  
+    
     const courses = this.state.courses.splice(0)
     courses.forEach((course) => {
       if (course._id === name) {
