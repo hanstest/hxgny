@@ -1,5 +1,8 @@
 import React from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
+
+import UserDetails from '../containers/user-details'
+
 import CourseScheduling from './course-scheduling'
 
 import TeacherList from './teacher-list'
@@ -24,10 +27,10 @@ import ClassList from '../containers/class-list'
 const activeItems = ['个人资料', '添加教师', '添加课程', '学期管理']
 
 class Account extends React.Component {
-  // state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
+  state = { activeItemTop: '个人中心', activeItemLeft: '个人资料' }
   // state = { activeItemTop: '个人中心', activeItemLeft: '注册课程' }
   // state = { activeItemTop: '课程管理', activeItemLeft: '添加课程' }
-  state = { activeItemTop: '数据管理', activeItemLeft: '学期管理' }
+  // state = { activeItemTop: '数据管理', activeItemLeft: '学期管理' }
   
   handleTopItemClick = (e, { name, index }) => {
     this.setState({ activeItemTop: name, activeItemLeft: activeItems[index] })
@@ -91,9 +94,9 @@ class Account extends React.Component {
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
-                        name='学生管理'
+                        name='学生列表'
                         index={0}
-                        active={activeItemLeft === '学生管理'}
+                        active={activeItemLeft === '学生列表'}
                         onClick={this.handleLeftItemClick}
                       />
                       <Menu.Item
@@ -107,12 +110,12 @@ class Account extends React.Component {
                   <Grid.Column stretched width={14}>
                     <div>
                       <div hidden={activeItemLeft !== '个人资料'}>
-                        Personal details
+                        <UserDetails />
                       </div>
                       <div hidden={activeItemLeft !== '添加学生'}>
                         <StudentCreation />
                       </div>
-                      <div hidden={activeItemLeft !== '学生管理'}>
+                      <div hidden={activeItemLeft !== '学生列表'}>
                         <StudentList />
                       </div>
                       <div hidden={activeItemLeft !== '注册课程'}>
