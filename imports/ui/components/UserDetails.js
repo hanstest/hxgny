@@ -1,5 +1,16 @@
+import { Meteor } from 'meteor/meteor'
 import React from 'react'
 import { Grid, Table, Header, Message } from 'semantic-ui-react'
+
+const formatMobileNumber = (mobile) => {
+  if (mobile === undefined) {
+    return ''
+  } else if (mobile.length !== 10) {
+    return mobile
+  }
+  
+  return '(' + mobile.slice(0, 3) + ') ' + mobile.slice(3, 6) + '-' + mobile.slice(6, 10)
+}
 
 class UserDetails extends React.Component {
   state = {}
@@ -17,6 +28,8 @@ class UserDetails extends React.Component {
   }
   
   render() {
+    const user = Meteor.user()
+    
     return (
       <Grid textAlign='left' width={16}>
         <Grid.Row>
@@ -27,6 +40,44 @@ class UserDetails extends React.Component {
         
         <Grid.Row>
           <Grid.Column width={16}>
+            <Header as='h4' content='Basic Information' />
+            <Table size='small' celled selectable singleLine>
+              <Table.Header>
+                <Table.Row textAlign='center'>
+                  <Table.HeaderCell>Role</Table.HeaderCell>
+                  <Table.HeaderCell>First Name</Table.HeaderCell>
+                  <Table.HeaderCell>Last Name</Table.HeaderCell>
+                  <Table.HeaderCell>Chinese Name</Table.HeaderCell>
+                  <Table.HeaderCell>Email</Table.HeaderCell>
+                  <Table.HeaderCell>Mobile</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+    
+              <Table.Body>
+                <Table.Row textAlign='center' key='father'>
+                  <Table.Cell>Mother</Table.Cell>
+                  <Table.Cell>{user.profile.name.mother.first}</Table.Cell>
+                  <Table.Cell>{user.profile.name.mother.last}</Table.Cell>
+                  <Table.Cell>{user.profile.name.mother.chinese}</Table.Cell>
+                  <Table.Cell>{user.profile.name.mother.email}</Table.Cell>
+                  <Table.Cell>{formatMobileNumber(user.profile.name.mother.mobile)}</Table.Cell>
+                </Table.Row>
+                <Table.Row textAlign='center' key='mother'>
+                  <Table.Cell>Father</Table.Cell>
+                  <Table.Cell>{user.profile.name.father.first}</Table.Cell>
+                  <Table.Cell>{user.profile.name.father.last}</Table.Cell>
+                  <Table.Cell>{user.profile.name.father.chinese}</Table.Cell>
+                  <Table.Cell>{user.profile.name.father.email}</Table.Cell>
+                  <Table.Cell>{formatMobileNumber(user.profile.name.father.mobile)}</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </Grid.Column>
+        </Grid.Row>
+        
+        <Grid.Row>
+          <Grid.Column width={16}>
+            <Header as='h4' content='Student Information' />
             {this.props.students.length > 0 && <Table size='small' celled selectable singleLine>
               <Table.Header>
                 <Table.Row textAlign='center'>
